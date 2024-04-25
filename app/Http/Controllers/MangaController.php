@@ -11,9 +11,12 @@ use Illuminate\Support\Carbon;
 class MangaController extends Controller
 {
 
-  public static function index(): mixed
+  static function index(): mixed
   {
-    $manga = Manga::all();
+    $manga = Manga::all()
+      ->sortByDesc('updated_at')
+      ->values()
+      ->all();
 
     return $manga;
   }

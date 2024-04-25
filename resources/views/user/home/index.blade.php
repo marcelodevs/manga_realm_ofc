@@ -27,11 +27,11 @@
     @foreach ($mangas as $manga)
       @php
         $today = now()->format('Y-m-d');
-        $mangaDate = $manga->created_at->format('Y-m-d');
+        $mangaDate = $manga->updated_at->format('Y-m-d');
       @endphp
       @if ($mangaDate == $today)
         <section class="today">
-          <h1>Publicados hoje</h1>
+          <h1>Atualizados hoje</h1>
           <hr>
           <x-card-manga>
             <x-slot name="id">{{ $manga->id }}</x-slot>
@@ -44,7 +44,7 @@
         </section>
       @elseif ($mangaDate == now()->subDay()->format('Y-m-d'))
         <section class="yesterday">
-          <h1>Publicados ontem</h1>
+          <h1>Autualizados recentemente</h1>
           <hr>
           <x-card-manga>
             <x-slot name="id">{{ $manga->id }}</x-slot>

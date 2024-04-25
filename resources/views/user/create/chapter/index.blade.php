@@ -5,7 +5,9 @@
 @section('css', 'user/create/chapter/new_chapter')
 
 @if(session('error'))
-  {{session('error')}}
+  <div class="alert alert-danger" role="alert">
+    {{session('error')}}
+  </div>
 @endif
 
 @section('main')
@@ -36,7 +38,7 @@
       </div>
       <br>
       <div class="btn-group">
-        <button type="submit" name="rascunho" value="S">Salvar Rascunho</button>
+        <button type="submit" name="sketch" value="S">Salvar Rascunho</button>
         <button type="submit">Enviar</button>
       </div>
     </form>
