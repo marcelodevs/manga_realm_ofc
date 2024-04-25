@@ -1,0 +1,65 @@
+main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 50%;
+  height: auto;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+main .card_manga {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  height: 100%;
+  background: darkblue;
+  color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: all .6s ease;
+}
+
+main .card_manga:hover {
+  transform: scale(1.1);
+}
+
+main .card_manga img {
+  width: 50px;
+  height: 50px;
+}
+
+main .card_capther {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  height: 100%;
+  background: darkblue;
+  color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: all .6s ease;
+}
+
+main .card_capther:hover {
+  transform: scale(1.1);
+}
+
+main .card_capther img {
+  width: 50px;
+  height: 50px;
+}

@@ -2,39 +2,37 @@
 
 @section('title', '• Novo Mangá')
 
-@section('css', 'new_manga')
+@section('css', 'user/create/manga/new_manga')
 
 @if(session('error'))
-  {{session('error')}}
+  <div class="alert alert-danger" role="alert">
+    {{session('error')}}
+  </div>
 @endif
 
 @section('main')
-  <form action="{{ route('create.manga') }}" enctype="multipart/form-data" method="post" autocomplete="off" class="new_manga">
+  <form action="{{ route('create.manga') }}" enctype="multipart/form-data" method="post" autocomplete="off" class="new_manga form">
   @csrf
     <h1>Novo Mangá</h1>
     <div class="form-group">
       <label for="img">Imagem:</label>
-      <input type="file" name="image" id="img" accept="image/*" required>
+      <input type="file" name="image" class="form-control" id="img formFile" accept="image/*" required>
       <img src="" id="profileImage">
     </div>
     <div class="form-group">
       <label for="nome">Nome do mangá/light novel:</label>
-      <input type="text" name="name" id="nome" value="Akuma to keiyaku shita hi" required>
+      <input type="text" name="name" id="nome" required>
     </div>
+    <br>
     <div class="form-group">
-      <label for="genero">Gêneros:</label>
-        <input value="Romance" type="checkbox" id="genero" name="categorys[]">Romance
-        <input value="Drama" type="checkbox" id="genero" name="categorys[]" checked>Drama
-        <input value="Ação" type="checkbox" id="genero" name="categorys[]" checked>Ação
-        <input value="Comédia" type="checkbox" id="genero" name="categorys[]" checked>Comédia
-        <input value="Escolar" type="checkbox" id="genero" name="categorys[]" checked>Escolar
-        <input value="Shounen" type="checkbox" id="genero" name="categorys[]" checked>Shounen
-        <input value="Poderes" type="checkbox" id="genero" name="categorys[]" checked>Poderes
-        <input value="Magia" type="checkbox" id="genero" name="categorys[]" checked>Magia
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <label class="form-check-label" for="inlineRadio1">1</label>
+      </div>
     </div>
     <div class="form-group">
       <label for="sinopse">Sinopse:</label>
-      <textarea name="synopsis" id="sinopse" maxlength="500" accesskey="i" required>Akuma to keiyaku shita hi</textarea>
+      <textarea name="synopsis" id="sinopse" maxlength="500" required></textarea>
       <span id="char-count">0</span>/500
     </div>
     <br>

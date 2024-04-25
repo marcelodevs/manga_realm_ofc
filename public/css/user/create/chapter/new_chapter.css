@@ -1,69 +1,12 @@
 /* CONTEUDO PRINCIPAL */
 
 main {
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
-
   width: 100%;
   height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-main .card_manga {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  height: 100%;
-  background: darkblue;
-  color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  cursor: pointer;
-
-  transition: all .6s ease;
-}
-
-main .card_manga:hover {
-  transform: scale(1.1);
-}
-
-main .card_manga img {
-  width: 50px;
-  height: 50px;
-}
-
-main .card_capther {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  height: 100%;
-  background: darkblue;
-  color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  cursor: pointer;
-
-  transition: all .6s ease;
-}
-
-main .card_capther:hover {
-  transform: scale(1.1);
-}
-
-main .card_capther img {
-  width: 50px;
-  height: 50px;
 }
 
 /* NOVO CAPÍTULO */
@@ -119,50 +62,6 @@ main .card_capther img {
   height: 200px;
   outline: none;
   resize: none;
-}
-
-/* SEARCH */
-
-.search-input {
-  width: 50%;
-}
-
-.search-input input {
-  padding: 10px;
-  width: 100%;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  letter-spacing: 1px;
-  color: #000;
-}
-
-#search-results {
-  position: absolute;
-  transform: translate(0%, -4%);
-  width: 50%;
-  max-height: 200px;
-  overflow-y: auto;
-  background-color: #fff;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-#search-results div {
-  padding: 10px;
-  cursor: pointer;
-}
-
-#search-results div:hover {
-  background-color: #f0f0f0;
-}
-
-#search-results a {
-  color: #333;
-  text-decoration: none;
-  min-width: 100%;
 }
 
 /* ERROR */

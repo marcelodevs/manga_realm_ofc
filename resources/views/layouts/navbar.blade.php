@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('navbar-primary')
-  <nav class="navbar p-3 border-bottom border-dark">
+  <nav class="navbar p-3 border-bottom border-light">
     <h1 class="fs-3">
       <a href="/" class="nav-link text-light text-decoration-none fw-bold">MangáRealm</a>
     </h1>
