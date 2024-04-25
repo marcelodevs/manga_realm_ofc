@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Manga;
 use Illuminate\Http\Request;
 
 class ChapterController extends Controller
@@ -15,8 +14,7 @@ class ChapterController extends Controller
   public function create()
   {
     $user = auth()->user();
-    $mangas = Manga::find($user->id)->users;
-    // var_dump($mangas);
+    $mangas = MangaController::byAuthors($user->id)->get();
     return view("user.create.chapter.index", ['user' => $user, 'mangas' => $mangas]);
   }
 

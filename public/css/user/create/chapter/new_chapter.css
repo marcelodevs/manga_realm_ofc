@@ -1,31 +1,30 @@
 /* CONTEUDO PRINCIPAL */
 
 main {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+
   width: 100%;
-  height: 100%;
+  height: auto;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 /* NOVO CAPÍTULO */
 
 .new-chapter {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-
-  position: absolute;
+  position: fixed;
   left: 50%;
-  transform: translate(-50%, 15%);
+  transform: translate(-50%, 10%);
 
-  margin: 30px;
-  padding: 30px;
-
-  background: darkblue;
+  width: 50%;
+  padding: 20px;
   border-radius: 10px;
+  background-color: #00008b;
   color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -34,17 +33,6 @@ main {
   padding: 3px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   text-align: center;
-  animation: bar 1s infinite alternate;
-}
-
-@keyframes bar {
-  0% {
-    border-bottom-width: 100%;
-  }
-
-  100% {
-    border-bottom-width: 0%;
-  }
 }
 
 .new-chapter input {
@@ -58,10 +46,27 @@ main {
 }
 
 .new-chapter textarea {
-  width: 680px;
+  width: 635px;
   height: 200px;
   outline: none;
   resize: none;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #00008b;
+  border: 1px solid #fff;
+  cursor: pointer;
+  transition: background .6s ease;
+}
+
+button[type="submit"]:hover {
+  background: #00008b;
+  color: #fff;
 }
 
 /* ERROR */

@@ -31,6 +31,13 @@ class UserController extends Controller
     return view('user.home.authors', ['authors' => $authors, 'user' => $user, 'genero_manga' => $generos]);
   }
 
+  /**
+   * Método para pegar os Mangás de acordo com a categoria selecionado
+   * 
+   * @param string $categorie
+   * @return View
+   */
+
   public function showCategorys($categore): View
   {
     $user = auth()->user();

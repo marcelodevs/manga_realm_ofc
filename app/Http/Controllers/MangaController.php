@@ -25,6 +25,38 @@ class MangaController extends Controller
     return view('manga.index', ['manga' => $manga]);
   }
 
+  /**
+   * Método estático para trazer os Mangás de acordo com o usuário (autor)
+   * 
+   * @param int $id
+   * @return Manga
+   */
+
+  static function byAuthors($id)
+  {
+    $id_authors = $id;
+
+    $manga = Manga::where('user_id', '=', $id_authors);
+
+    return $manga;
+  }
+
+  /**
+   * Método para trazer os Mangás de acordo com o usuário (autor)
+   * 
+   * @param int $id
+   * @return View
+   */
+
+  public function showByAuthors($id)
+  {
+    $id_authors = $id;
+
+    $manga = Manga::where('user_id', '=', $id_authors);
+
+    return view('manga.index', ['mangas' => $manga]);
+  }
+
   public function create(): View
   {
     $user = auth()->user();

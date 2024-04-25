@@ -22,7 +22,7 @@
         <input type="text" list="mangas" name="manga_id" id="manga" required>
         <datalist id="mangas">
           @foreach ($mangas as $manga)
-            <option value="<?php echo $manga['id_manga'] ?>"><?php echo $manga['id_manga'] ?> - <?php echo $manga['nome'] ?></option>
+            <option value="{{ $manga->id }}">{{ $manga->id }} - {{ $manga->name }}</option>
           @endforeach
         </datalist>
       </div>
@@ -34,7 +34,7 @@
         <label for="content">Conteúdo</label>
         <textarea name="content" id="content" spellcheck="false" required></textarea>
       </div>
-      <input type="hidden" name="id_user" value="<?php echo $user['user_id']; ?>">
+      <br>
       <div class="btn-group">
         <button type="submit" name="rascunho" value="S">Salvar Rascunho</button>
         <button type="submit">Enviar</button>
