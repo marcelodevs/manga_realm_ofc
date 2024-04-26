@@ -1,0 +1,60 @@
+aside.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 500px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+aside.flex .content {
+  width: 50%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  background: darkblue;
+  transition: all .6s ease;
+}
+
+.card-img {
+  width: 70%;
+  overflow: hidden;
+  border-bottom: 1px solid #fff;
+  margin-top: 10px;
+}
+
+.card-img img {
+  width: 100%;
+  height: auto;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card-content p {
+  color: #fff;
+}
+
+.transparent-p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0 !important;
+}
+
+.transparent-p p {
+  color: rgba(255, 255, 255, 0.5);
+}

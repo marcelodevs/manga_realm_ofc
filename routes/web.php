@@ -16,9 +16,7 @@ Route::get('/categorys/{id}', [UserController::class, 'showCategorys']);
 Route::get('/create', [UserController::class, 'create'])->middleware('auth');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-  Route::get('/dashboard', function () {
-    return view('dashboard');
-  })->name('dashboard');
+  Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 });
 
 /* MANGÁ */

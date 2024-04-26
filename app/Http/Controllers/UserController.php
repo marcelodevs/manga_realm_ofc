@@ -7,6 +7,7 @@ use App\Models\Manga;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -17,7 +18,14 @@ class UserController extends Controller
     $manga = MangaController::index();
     $user = auth()->user();
     // var_dump(json_encode($manga[0]));
-    return view('user.home.index', ['genero_manga' => $generos, 'mangas' => $manga, 'user' => $user]);
+    return view(
+      'user.home.index',
+      [
+        'genero_manga' => $generos,
+        'mangas' => $manga,
+        'user' => $user
+      ]
+    );
   }
 
   public function showAuthors(): View
@@ -26,7 +34,15 @@ class UserController extends Controller
     $user = auth()->user();
     $generos = Category::all();
     $mangas = MangaController::byAuthors($user->id);
-    return view('user.home.authors', ['authors' => $authors, 'user' => $user, 'genero_manga' => $generos, 'mangas' => $mangas]);
+    return view(
+      'user.home.authors',
+      [
+        'authors' => $authors,
+        'user' => $user,
+        'genero_manga' => $generos,
+        'mangas' => $mangas
+      ]
+    );
   }
 
   /**
@@ -43,7 +59,14 @@ class UserController extends Controller
     $categore = Category::where('category_name', $categore);
     // $mangas = 
     // var_dump($authors[0]->name);
-    return view('user.home.categorys', ['user' => $user, 'genero_manga' => $generos, 'categore' => $categore]);
+    return view(
+      'user.home.categorys',
+      [
+        'user' => $user,
+        'genero_manga' => $generos,
+        'categore' => $categore
+      ]
+    );
   }
 
   public function showAuthorUser($id): View
@@ -62,5 +85,24 @@ class UserController extends Controller
   {
     $user = auth()->user();
     return view('user.create.index', ['user' => $user]);
+  }
+
+  public function dashboard()
+  {
+    $user = auth()->user();
+    $rascunhos = DB::table('chapters')
+      ->where('sketch', true)
+      ->get();
+    $mangas = DB::table('mangas')
+      ->where('user_id', $user->id)
+      ->get();
+
+    return view(
+      'dashboard',
+      [
+        'rascunhos' => $rascunhos,
+        'mangas' => $mangas
+      ]
+    );
   }
 }

@@ -58,9 +58,9 @@ class ChapterController extends Controller
     $chapter->content = $request->content;
 
     if (isset($request->sketch) && $request->sketch <> null) {
-      $chapter->sketch = $request->sketch;
+      $chapter->sketch = 1;
     } else {
-      $chapter->sketch = "N";
+      $chapter->sketch = 0;
     }
 
     $manga_update = Manga::find($request->manga_id);
