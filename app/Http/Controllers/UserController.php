@@ -25,10 +25,8 @@ class UserController extends Controller
     $authors = (User::whereHas('mangas')->get());
     $user = auth()->user();
     $generos = Category::all();
-    // $test = str_replace("profile-photos\/", "", $user->profile_photo_path);
-    // var_dump(json_encode($authors[0]));
-    // var_dump($test);
-    return view('user.home.authors', ['authors' => $authors, 'user' => $user, 'genero_manga' => $generos]);
+    $mangas = MangaController::byAuthors($user->id);
+    return view('user.home.authors', ['authors' => $authors, 'user' => $user, 'genero_manga' => $generos, 'mangas' => $mangas]);
   }
 
   /**

@@ -13,9 +13,11 @@
       </div>
       <div class="card-description">
         <p>
-          {{ $synopse }}
+          @if (isset($synopse))
+            {{ $synopse }}
+          @endif
         </p>
-        @if (!$categories)
+        @if (isset($categories) && !$categories)
           <p>
             @foreach (json_decode($categories) as $category)
               {{ $category }},

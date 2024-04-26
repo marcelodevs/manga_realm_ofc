@@ -7,10 +7,10 @@
       </div>
       <div class="modal-body">
         <div class="d-flex flex-row justify-content-evenly align-items-center">
-          <img src="/storage/{{ $image }}" class="rounded-circle w-25">
+          <img src="/storage/{{ $user_image }}" class="rounded-circle w-25">
           <div class="row">
-            <p class="text-dark fs-4">{{ $name }}</p>
-            <p class="text-dark fs-5">{{ $name }}</p>
+            <p class="text-dark fs-4">{{ $user_name }}</p>
+            <p class="text-dark fs-5">{{ $user_name }}</p>
           </div>
         </div>
       </div>
@@ -27,17 +27,13 @@
         <h5 class="modal-title" id="exampleModalToggleLabel2">Mangás</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        {{-- @foreach ($mangas as $manga)
+      <div class="modal-body d-flex flex-column align-items-center w-100">
           <x-card-manga>
-            <x-slot name="id">{{ $manga->id }}</x-slot>
-            <x-slot name="image">{{ $manga->image }}</x-slot>
-            <x-slot name="name">{{ $manga->name }}</x-slot>
-            <x-slot name="categories">{{ $manga->categorys }}</x-slot>
-            <x-slot name="qtd_chapters">{{ $manga->qtd_chapter }}</x-slot>
-            <x-slot name="synopse">{{ $manga->synopsis }}</x-slot>
+            <x-slot name='id'>{{ $id }}</x-slot>
+            <x-slot name='image'>{{ $image }}</x-slot>
+            <x-slot name='name'>{{ $name }}</x-slot>
+            <x-slot name='qtd_chapters'>{{ $qtd_chapters }}</x-slot>
           </x-card-manga>
-        @endforeach --}}
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Ver perfil</button>
