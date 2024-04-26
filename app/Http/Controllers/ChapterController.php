@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class ChapterController extends Controller
 {
-  public static function listAll()
-  {
-    return;
-  }
-
   public function create()
   {
     $user = auth()->user();

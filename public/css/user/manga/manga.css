@@ -1,0 +1,17 @@
+.first {
+  left: 50%;
+  transform: translateX(-50%);
+
+  margin-top: 20px;
+
+  background: #00008b;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: rgba(0, 0, 0, .6);
+}

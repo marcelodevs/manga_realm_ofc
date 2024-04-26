@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chapter;
 use App\Models\Manga;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MangaController extends Controller
 {
@@ -24,8 +25,13 @@ class MangaController extends Controller
   public function show(): View
   {
     $id = request('id');
-    $manga = Manga::where('id', '=', $id);
-    return view('manga.index', ['manga' => $manga]);
+    $manga = Manga::where('id', $id)->get();
+    $chapters = DB::table('chapters')
+      ->where('manga_id', $id)
+      ->orderBy('index')
+      ->get();
+    $user = auth()->user();
+    return view('user.manga.index', ['manga' => $manga[0], 'user' => $user, 'chapters' => $chapters]);
   }
 
   /**
