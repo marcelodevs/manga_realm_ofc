@@ -5,15 +5,45 @@ namespace App\Http\Controllers;
 use App\Models\Chapter;
 use App\Models\Manga;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ChapterController extends Controller
 {
-  public function create()
+  public function show(): View
+  {
+    $id = request('id');
+    $user = auth()->user();
+    $chapter = DB::table('chapters')
+      ->where('id', $id)
+      ->get();
+
+    $manga_name = MangaController::byId($chapter[0]->manga_id);
+
+    foreach ($manga_name as $manga) {
+      return view(
+        'user.chapter.index',
+        [
+          'user' => $user,
+          'chapter' => $chapter[0],
+          'manga_name' => $manga
+        ]
+      );
+    }
+  }
+
+  public function create(): View
   {
     $user = auth()->user();
-    $mangas = MangaController::byAuthors($user->id)->get();
-    return view("user.create.chapter.index", ['user' => $user, 'mangas' => $mangas]);
+    $mangas = MangaController::byAuthors($user->id);
+    return view(
+      "user.create.chapter.index",
+      [
+        'user' => $user,
+        'mangas' => $mangas
+      ]
+    );
   }
 
   public function store(Request $request)

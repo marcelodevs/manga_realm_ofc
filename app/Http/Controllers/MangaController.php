@@ -35,6 +35,20 @@ class MangaController extends Controller
   }
 
   /**
+   * Método estático para trazer os Mangás por ID
+   * 
+   * @param  int $id
+   * @return Manga
+   */
+
+  static function byId($id)
+  {
+    return DB::table('mangas')
+      ->where('id', $id)
+      ->pluck('name');
+  }
+
+  /**
    * Método estático para trazer os Mangás de acordo com o usuário (autor)
    * 
    * @param int $id
