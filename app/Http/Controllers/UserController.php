@@ -52,6 +52,12 @@ class UserController extends Controller
     return view('user.profile.show', ['user' => $user]);
   }
 
+  public function showHelper(): View
+  {
+    $user = auth()->user();
+    return view('user.helper.help', ['user' => $user]);
+  }
+
   public function create(): View
   {
     $user = auth()->user();

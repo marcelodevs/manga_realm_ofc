@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 /* USUÁRIO */
 
 Route::get('/', [UserController::class, 'index']);
+Route::get('/help', [UserController::class, 'showHelper']);
 Route::get('/profile', [UserController::class, 'showAuthors']);
 Route::get('/authors', [UserController::class, 'showAuthors']);
 Route::get('/author/{id}', [UserController::class, 'showAuthorUser']);
