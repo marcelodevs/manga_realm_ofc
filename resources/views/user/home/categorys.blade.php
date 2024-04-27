@@ -1,67 +1,47 @@
 @extends('layouts.navbar')
 
-@section('title', '• Mangás')
+@section('css', 'user/home/index')
 
-@section('css', 'usuario')
+@php
+  $selectedCategory = request('id'); // Obtém o valor da categoria da URL
+@endphp
 
 @section('navbar-secondary')
-  <hr>
-    <nav>
-      <div class="btn-group">
-        <button><a href="/">Página Inicial</a></button>
-        <select id="category-select">
-          <option value="Tudo" <?php echo (!isset($_GET['category'])) ? 'selected' : '' ?>>Tudo</option>
-          @foreach ($genero_manga as $genero)
-            <option value="/categorys/<?php echo $genero->category_name; ?>" <?php echo (isset($_GET['category']) and $_GET['category'] == $genero) ? 'selected' : '' ?>>
-              {{$genero->category_name}}
-            </option>
-          @endforeach
-        </select>
-        <button><a href="/authors">Autores</a></button>
-      </div>
-    </nav>
+  <nav class="navbar">
+    <div class="btn-group navbar-collapse">
+      <button class="p-2">
+        <a href="/" class="nav-item text-decoration-none p-2">Página Inicial</a>
+      </button>
+      <select id="category-select" class="p-0 w-auto">
+        <option value="Tudo">Tudo</option>
+        @foreach ($genero_manga as $genero)
+          <option value="/categorys/{{ $genero->category_name }}" {{ $selectedCategory == $genero->category_name ? 'selected' : '' }}>
+            {{ $genero->category_name }}
+          </option>
+        @endforeach
+      </select>
+      <button class="p-2">
+        <a href="/authors" class="nav-item text-decoration-none">Autores</a>
+      </button>
+    </div>
+  </nav>
 @endsection
 
 @section('main')
   @if (count($mangas) > 0)
     @foreach ($mangas as $manga)
-      <a href="/manga/?manga={{$manga->id}}">
-        <div class="card">
-          <div class="card-img">
-            <img src="/images/manga/{{$manga->image}}" alt="Descrição da imagem">
-          </div>
-          <div class="card-content">
-            <p>{{$manga->name}}</p>
-            <div class="transparent-p">
-              <p>
-                @foreach (json_decode($manga->categorys) as $category)
-                  {{ $category }},
-                @endforeach
-              </p>
-              <p>Capítulos</p>
-              <p>{{($manga->qtd_chapter)}}</p>
-            </div>
-          </div>
-        </div>
-      </a>
+      <x-card-manga>
+        <x-slot name="id">{{ $manga->id }}</x-slot>
+        <x-slot name="image">{{ $manga->image }}</x-slot>
+        <x-slot name="name">{{ $manga->name }}</x-slot>
+        <x-slot name="categories">{{ $manga->categorys }}</x-slot>
+        <x-slot name="qtd_chapters">{{ $manga->qtd_chapter }}</x-slot>
+        <x-slot name="synopse">{{ $manga->synopsis }}</x-slot>
+      </x-card-manga>
     @endforeach
   @else
-    <p style="color: red;">Nenhum mangá adicionado!</p>
+    <p style="color: red;">Nenhum mangá dessa categoria adicionado!</p>
   @endif
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-  <script>
-    $(document).ready(function(){
-
-    $('#category-select').on('change', function () {
-        var url = $(this).val(); 
-        if (url) { 
-          window.open(url);
-        }
-        return false;
-      });
-    });
-  </script>
 @endsection
+
+@section("scripts", "src=/js/user/home/index.js")

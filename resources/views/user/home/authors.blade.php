@@ -4,6 +4,10 @@
 
 @section('css', 'user/home/authors')
 
+@php
+  $selectedCategory = request('id'); // Obtém o valor da categoria da URL
+@endphp
+
 @section('navbar-secondary')
   <nav class="navbar">
     <div class="btn-group navbar-collapse">
@@ -11,10 +15,10 @@
         <a href="/" class="nav-item text-decoration-none p-2">Página Inicial</a>
       </button>
       <select id="category-select" class="p-0 w-auto">
-        <option value="Tudo" <?php echo (!isset($_GET['category'])) ? 'selected' : '' ?>>Tudo</option>
+        <option value="Tudo">Tudo</option>
         @foreach ($genero_manga as $genero)
-          <option value="/categorys/<?php echo $genero->category_name; ?>" <?php echo (isset($_GET['category']) and $_GET['category'] == $genero) ? 'selected' : '' ?>>
-            {{$genero->category_name}}
+          <option value="/categorys/{{ $genero->category_name }}" {{ $selectedCategory == $genero->category_name ? 'selected' : '' }}>
+            {{ $genero->category_name }}
           </option>
         @endforeach
       </select>
@@ -53,19 +57,6 @@
   @else
     <p style="color: red;">Nenhum autor adicionado!</p>
   @endif
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-  <script>
-    $(document).ready(function(){
-
-    $('#category-select').on('change', function () {
-        var url = $(this).val(); 
-        if (url) { 
-          window.open(url);
-        }
-        return false;
-      });
-    });
-  </script>
 @endsection
+
+@section("scripts", "src=/js/user/home/index.js")

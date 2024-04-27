@@ -30,6 +30,6 @@ class Manga extends Model
 
   public function categories()
   {
-    return $this->hasMany(MangaCategory::class);
+    return $this->belongsToMany(Category::class);
   }
 }

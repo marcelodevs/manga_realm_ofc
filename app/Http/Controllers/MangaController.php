@@ -43,9 +43,7 @@ class MangaController extends Controller
 
   static function byId($id)
   {
-    return DB::table('mangas')
-      ->where('id', $id)
-      ->pluck('name');
+    return Manga::find($id);
   }
 
   /**

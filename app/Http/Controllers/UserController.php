@@ -52,19 +52,27 @@ class UserController extends Controller
    * @return View
    */
 
-  public function showCategorys($categore): View
+  public function showCategorys(): View
   {
     $user = auth()->user();
     $generos = Category::all();
-    $categore = Category::where('category_name', $categore);
-    // $mangas = 
-    // var_dump($authors[0]->name);
+    $category_name = request('id');
+    $category = MangaCategoryController::show($category_name);
+    $mangaIds = [];
+
+    foreach ($category as $mangaCategory) {
+      $mangaIds[] = $mangaCategory->manga_id;
+    }
+
+    $mangas = MangaController::byId($mangaIds);
+
     return view(
       'user.home.categorys',
       [
         'user' => $user,
         'genero_manga' => $generos,
-        'categore' => $categore
+        'category' => $category_name,
+        'mangas' => $mangas
       ]
     );
   }

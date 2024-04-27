@@ -10,8 +10,8 @@
       <select id="category-select" class="p-2 w-auto">
         <option value="Tudo" <?php echo (!isset($_GET['category'])) ? 'selected' : '' ?>>Tudo</option>
         @foreach ($genero_manga as $genero)
-          <option value="/categorys/<?php echo $genero->category_name; ?>" <?php echo (isset($_GET['category']) and $_GET['category'] == $genero) ? 'selected' : '' ?>>
-            {{$genero->category_name}}
+          <option value="/categorys/{{ $genero->category_name }}">
+            {{ $genero->category_name }}
           </option>
         @endforeach
       </select>
