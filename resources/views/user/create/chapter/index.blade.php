@@ -35,6 +35,8 @@
       <div class="form-group">
         <label for="content">Conteúdo</label>
         <textarea name="content" id="content" spellcheck="false" required></textarea>
+        <span id="char-count">0</span> caracteres,
+        <span id="word-count">0</span> palavras
       </div>
       <br>
       <div class="btn-group">
@@ -53,3 +55,5 @@
     </div>
   @endif
 @endsection
+
+@section('scripts', 'src=/js/chapter/new_chapter.js')

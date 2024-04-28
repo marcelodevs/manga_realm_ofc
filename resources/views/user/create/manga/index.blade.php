@@ -35,9 +35,12 @@
     <div class="form-group w-100">
       <label for="sinopse">Sinopse:</label>
       <textarea name="synopsis" id="sinopse" class="w-100" maxlength="500" required></textarea>
-      <span id="char-count">0</span>/500
+      <span id="char-count">0</span>/500 caracteres,
+      <span id="word-count">0</span> palavras
     </div>
     <br>
     <button type="submit">Enviar</button>
   </form>
 @endsection
+
+@section('scripts', 'src=/js/manga/new_manga.js')
