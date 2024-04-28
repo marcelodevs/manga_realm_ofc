@@ -19,22 +19,20 @@
       <input type="file" name="image" class="form-control" id="img formFile" accept="image/*" required>
       <img src="" id="profileImage">
     </div>
-    <div class="form-group w-100">
+    <div class="form-group">
       <label for="nome">Nome do mangá/light novel:</label>
-      <input type="text" name="name" id="nome" class="w-100" required>
+      <input type="text" name="name" id="nome" required>
     </div>
     <br>
     <div class="form-group">
-      @foreach ($categories as $item)
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" name="categorys[]" id="inlineRadio1" value="{{ $item->id }}">
-          <label class="form-check-label" for="inlineRadio1">{{ $item->category_name }}</label>
-        </div>
-      @endforeach
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <label class="form-check-label" for="inlineRadio1">1</label>
+      </div>
     </div>
-    <div class="form-group w-100">
+    <div class="form-group">
       <label for="sinopse">Sinopse:</label>
-      <textarea name="synopsis" id="sinopse" class="w-100" maxlength="500" required></textarea>
+      <textarea name="synopsis" id="sinopse" maxlength="500" required></textarea>
       <span id="char-count">0</span>/500 caracteres,
       <span id="word-count">0</span> palavras
     </div>

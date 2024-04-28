@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Chapter;
 use App\Models\Manga;
-use App\Models\MangaCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -31,19 +30,8 @@ class MangaController extends Controller
       ->where('manga_id', $id)
       ->orderBy('index')
       ->get();
-    $categories_id = MangaCategoryController::byManga($id);
-    
-    $categories = CategorysController::byId($categories_id);
     $user = auth()->user();
-    return view(
-      'user.manga.index',
-      [
-        'manga' => $manga[0],
-        'user' => $user,
-        'chapters' => $chapters,
-        'categories' => $categories
-      ]
-    );
+    return view('user.manga.index', ['manga' => $manga[0], 'user' => $user, 'chapters' => $chapters]);
   }
 
   /**
@@ -77,29 +65,21 @@ class MangaController extends Controller
   public function create(): View
   {
     $user = auth()->user();
-    $categories = CategorysController::show();
-
-    return view(
-      'user.create.manga.index',
-      [
-        'user' => $user,
-        'categories' => $categories
-      ]
-    );
+    return view('user.create.manga.index', ['user' => $user]);
   }
 
   public function store(Request $request)
   {
+    $manga = new Manga;
+
     $user = auth()->user();
 
-    $manga = new Manga;
     $manga->user_id = $user->id;
     $manga->name = $request->name;
+    $manga->categorys = json_encode($request->categorys);
     $manga->synopsis = $request->synopsis;
-    $manga->categorys = '{}';
     $manga->created_at = Carbon::now();
     $manga->updated_at = Carbon::now();
-    $manga->qtd_chapter = 0;
 
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
       $requestImage = $request->image;
@@ -109,23 +89,12 @@ class MangaController extends Controller
       $manga->image = $imageName;
     }
 
+    $manga->qtd_chapter = 0;
+
     try {
-      DB::beginTransaction();
-
       $manga->save();
-
-      foreach ($request->categorys as $category_id) {
-        MangaCategory::create([
-          'manga_id' => $manga->id,
-          'category_id' => $category_id,
-        ]);
-      }
-
-      DB::commit();
     } catch (\Exception $e) {
-      DB::rollBack();
       return redirect('/create/manga')->with('error', $e->getMessage());
-      // return redirect('/create/manga')->with('error', var_dump($request->categorys));
     }
 
     return redirect('/')->with('msg', 'Mangá inserido com sucesso!');
