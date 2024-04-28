@@ -16,6 +16,8 @@ class MangaCategory extends Model
 {
   use HasFactory;
 
+  protected $fillable = ['manga_id', 'category_id'];
+
   public function mangas()
   {
     return $this->belongsTo(Manga::class);

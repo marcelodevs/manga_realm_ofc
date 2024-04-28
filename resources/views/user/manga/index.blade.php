@@ -11,8 +11,12 @@
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title text-light">{{ $manga->name }}</h5>
-          <p class="card-text text-light">Capítulos: {{ $manga->qtd_chapter }}</p>
-          <p class="card-text text-light">{{ $manga->categorys }}</p>
+          <p class="card-text text-light">{{ $manga->qtd_chapter }} capítulos</p>
+          <p class="card-text text-light">
+            @foreach ($categories as $index => $item)
+              {{ $item->category_name }}@if ($index < count($categories) - 1),@endif
+            @endforeach
+          </p>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentsModalToggle" role="button">
             Ver comentários
           </button>

@@ -29,4 +29,14 @@ class CategorysController extends Controller
   {
     return Category::where('category_name', $name)->get();
   }
+
+  /**
+   * Método estático que retorna uma categoria de acordo com o id 
+   *
+   * @param  int $id
+   * @return Collection
+   */
+  static function byId($id) {
+    return Category::find($id);
+  }
 }
