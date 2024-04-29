@@ -30,8 +30,19 @@ class MangaController extends Controller
       ->where('manga_id', $id)
       ->orderBy('index')
       ->get();
+    $categories_id = MangaCategoryController::byManga($id);
+
+    $categories = CategorysController::byId($categories_id);
     $user = auth()->user();
-    return view('user.manga.index', ['manga' => $manga[0], 'user' => $user, 'chapters' => $chapters]);
+    return view(
+      'user.manga.index',
+      [
+        'manga' => $manga[0],
+        'user' => $user,
+        'chapters' => $chapters,
+        'categories' => $categories
+      ]
+    );
   }
 
   /**

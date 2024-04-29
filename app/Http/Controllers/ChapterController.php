@@ -75,4 +75,25 @@ class ChapterController extends Controller
       return redirect('/create/chapter')->with('error', $e->getMessage());
     }
   }
+
+  public function saveAsDraft(Request $request): void
+  {
+    $chapter = new Chapter;
+
+    $chapter->manga_id = $request->manga_id;
+    $chapter->index = $request->index;
+    $chapter->title = $request->title;
+    $chapter->created_at = Carbon::now();
+    $chapter->updated_at = Carbon::now();
+    $chapter->content = $request->content;
+
+    $chapter->sketch = 1;
+
+    $manga_update = Manga::find($request->manga_id);
+
+    $manga_update->qtd_chapter += 1;
+
+    $chapter->save();
+    $manga_update->save();
+  }
 }

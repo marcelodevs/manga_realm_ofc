@@ -12,7 +12,7 @@
 
 @section('main')
   @if ($mangas <> null)
-    <form action="{{ route('create.chapter') }}" method="post" autocomplete="off" class="new-chapter">
+    <form action="{{ route('create.chapter') }}" method="post" autocomplete="off" class="new-chapter" id="chapterForm">
       @csrf
       <h1>Novo Capítulo</h1>
       <div class="form-group">
@@ -54,6 +54,34 @@
       </div>
     </div>
   @endif
+
+  <script>
+    function autoSaveDraft() {
+      let formData = new FormData(document.getElementById('chapterForm'));
+
+      if (formData.get('index') && formData.get('manga_id') && formData.get('title') && formData.get('content')) {
+        fetch('{{ route("save.as.draft") }}', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => {
+            if (response.ok) {
+              console.log('Salvo como rascunho.');
+            } else {
+              console.error('Erro ao salvar como rascunho.');
+            }
+          })
+          .catch(error => {
+            console.error('Erro ao salvar como rascunho:', error);
+          });
+      } else {
+        console.error('Por favor, preencha todos os campos obrigatórios.');
+      }
+    }
+
+    setInterval(autoSaveDraft, 60000); // 60000 ms = 1 minuto
+  </script>
+
 @endsection
 
 @section('scripts', 'src=/js/chapter/new_chapter.js')
