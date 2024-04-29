@@ -28,6 +28,10 @@ class MangaController extends Controller
     $manga = Manga::where('id', $id)->get();
     $chapters = DB::table('chapters')
       ->where('manga_id', $id)
+      ->where(function ($query) {
+        return $query
+          ->where('sketch', '!=', 1);
+      })
       ->orderBy('index')
       ->get();
     $categories_id = MangaCategoryController::byManga($id);

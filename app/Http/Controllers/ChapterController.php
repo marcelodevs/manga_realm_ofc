@@ -91,7 +91,7 @@ class ChapterController extends Controller
 
     $manga_update = Manga::find($request->manga_id);
 
-    $manga_update->qtd_chapter += 1;
+    $manga_update->qtd_chapter += 0;
 
     $chapter->save();
     $manga_update->save();
