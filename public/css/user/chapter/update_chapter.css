@@ -1,0 +1,76 @@
+/* CONTEUDO PRINCIPAL */
+
+main {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* NOVO CAPÍTULO */
+
+.new-chapter {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 10%);
+
+  width: 50%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #00008b;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.new-chapter h1 {
+  padding: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.new-chapter input {
+  width: 100%;
+  padding: 5px;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.new-chapter textarea {
+  width: 635px;
+  height: 200px;
+  outline: none;
+  resize: none;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #00008b;
+  border: 1px solid #fff;
+  cursor: pointer;
+  transition: background .6s ease;
+}
+
+button[type="submit"]:hover {
+  background: #00008b;
+  color: #fff;
+}
+
+/* ERROR */
+
+main .toast {
+  display: block !important;
+}

@@ -15,22 +15,18 @@ class ChapterController extends Controller
   {
     $id = request('id');
     $user = auth()->user();
-    $chapter = DB::table('chapters')
-      ->where('id', $id)
-      ->get();
+    $chapter = Chapter::find($id);
 
-    $manga_name = MangaController::byId($chapter[0]->manga_id);
+    $manga_name = MangaController::byId($chapter->manga_id);
 
-    foreach ($manga_name as $manga) {
-      return view(
-        'user.chapter.index',
-        [
-          'user' => $user,
-          'chapter' => $chapter[0],
-          'manga_name' => $manga
-        ]
-      );
-    }
+    return view(
+      'user.chapter.index',
+      [
+        'user' => $user,
+        'chapter' => $chapter,
+        'manga_name' => $manga_name->name
+      ]
+    );
   }
 
   public function create(): View
@@ -76,24 +72,59 @@ class ChapterController extends Controller
     }
   }
 
-  public function saveAsDraft(Request $request): void
+  public function edit(): View
   {
-    $chapter = new Chapter;
+    $id = request('id');
+    $chapter = Chapter::find($id);
+    $user = auth()->user();
 
-    $chapter->manga_id = $request->manga_id;
+    if (!isset($chapter)) {
+      abort(404);
+    }
+
+    $manga_name = MangaController::byId($chapter->manga_id);
+
+
+    return view(
+      'user.chapter.edit.index',
+      [
+        'user' => $user,
+        'chapter' => $chapter,
+        'manga_name' => $manga_name->name
+      ]
+    );
+  }
+
+  public function update(Request $request)
+  {
+    $id = request('id');
+    $chapter = Chapter::find($id);
+
     $chapter->index = $request->index;
     $chapter->title = $request->title;
-    $chapter->created_at = Carbon::now();
-    $chapter->updated_at = Carbon::now();
     $chapter->content = $request->content;
 
-    $chapter->sketch = 1;
+    if (isset($request->sketch) && $request->sketch <> null) {
+      $chapter->sketch = 1;
+      try {
+        $chapter->save();
+        return redirect('/dashboard');
+      } catch (\Exception $e) {
+        return redirect('/chapter/edit/' . $request->id)->with('error', $e->getMessage());
+      }
+    } else {
+      $chapter->sketch = 0;
+      $manga_update = Manga::find($request->manga_id);
 
-    $manga_update = Manga::find($request->manga_id);
+      $manga_update->qtd_chapter += 1;
 
-    $manga_update->qtd_chapter += 0;
-
-    $chapter->save();
-    $manga_update->save();
+      try {
+        $chapter->save();
+        $manga_update->save();
+        return redirect('/manga/' . $request->manga_id);
+      } catch (\Exception $e) {
+        return redirect('/chapter/edit/' . $request->id)->with('error', $e->getMessage());
+      }
+    }
   }
 }

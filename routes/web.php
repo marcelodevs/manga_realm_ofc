@@ -29,7 +29,9 @@ Route::post('/create/manga', [MangaController::class, 'store'])->middleware('aut
 /* CAPÍTULO */
 
 Route::get('/chapter/{id}', [ChapterController::class, 'show']);
+Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware('auth');
 Route::get('/create/chapter', [ChapterController::class, 'create'])->middleware('auth');
 
-Route::post('/save-as-draft', [ChapterController::class, 'saveAsDraft'])->name('save.as.draft');
+Route::post('/save-as-draft', [ChapterController::class, 'saveAsDraft'])->middleware('auth')->name('save.as.draft');
 Route::post('/create/chapter', [ChapterController::class, 'store'])->middleware('auth')->name('create.chapter');
+Route::post('/chapter/edit/{id}', [ChapterController::class, 'update'])->middleware('auth')->name('update.chapter');

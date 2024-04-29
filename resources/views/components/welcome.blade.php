@@ -1,6 +1,7 @@
 @props(['manga', 'rascunhos'])
 
-@section('css', 'templates/card-manga')
+@section('css', 'user/chapter/sketch')
+@section('css2', 'templates/card-manga')
 
 <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
   <x-application-logo class="block h-12 w-auto" />
@@ -10,10 +11,7 @@
   </h1>
 
   <p class="mt-6 text-gray-500 leading-relaxed">
-    Laravel Jetstream provides a beautiful, robust starting point for your next Laravel application. Laravel is designed
-    to help you build your application using a development environment that is simple, powerful, and enjoyable. We believe
-    you should love expressing your creativity through programming, so we have spent time carefully crafting the Laravel
-    ecosystem to be a breath of fresh air. We hope you love it.
+    Sem ideias doq pôr aq, entt finge que tem algo para preencher e segue o roteiro :)
   </p>
 </div>
 
@@ -49,7 +47,7 @@
         <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
       </svg>
       <h2 class="ms-3 text-xl font-semibold text-gray-900">
-        <a href="https://laracasts.com">Meus Mangás</a>
+        <a href="">Meus Mangás ( {{ count($manga) }} )</a>
       </h2>
     </div>
 
@@ -72,12 +70,18 @@
         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
       </svg>
       <h2 class="ms-3 text-xl font-semibold text-gray-900">
-        <a href="https://tailwindcss.com/">Meus Rascunhos</a>
+        <a href="">Meus Rascunhos ( {{ count($rascunhos) }} )</a>
       </h2>
     </div>
 
-    <p class="mt-4 text-gray-500 text-sm leading-relaxed">
-      Laravel Jetstream is built with Tailwind, an amazing utility first CSS framework that doesn't get in your way. You'll be amazed how easily you can build and maintain fresh, modern designs with this wonderful framework at your fingertips.
-    </p>
+    <aside class="flex sketch">
+      @foreach ($rascunhos as $item)
+        <x-card-sketch-chapter>
+          <x-slot name="id">{{ $item->id }}</x-slot>
+          <x-slot name="index">{{ $item->index }}</x-slot>
+          <x-slot name="title">{{ $item->title }}</x-slot>
+        </x-card-sketch-chapter>
+      @endforeach
+    </aside>
   </div>
 </div>

@@ -16,6 +16,7 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <!-- Styles -->
   <link rel="stylesheet" href="/css/@yield('css').css">
+  <link rel="stylesheet" href="/css/@yield('css2').css">
   @livewireStyles
 </head>
 
