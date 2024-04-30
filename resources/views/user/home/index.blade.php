@@ -23,6 +23,13 @@
 @endsection
 
 @section('main')
+  @if (count($rascunhos) > 0)
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Você tem {{ count($rascunhos) }} capítulos salvo como rascunho!</strong>
+      <a href="/dashboard" class="alert-link">Clique aqui para vê-lo</a>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  @endif
   @if (count($mangas) > 0)
     @php
       $groupedMangas = [

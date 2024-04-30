@@ -17,13 +17,16 @@ class UserController extends Controller
     $generos = Category::all();
     $manga = MangaController::index();
     $user = auth()->user();
-    // var_dump(json_encode($manga[0]));
+    $rascunhos = DB::table('chapters')
+      ->where('sketch', true)
+      ->get();
     return view(
       'user.home.index',
       [
         'genero_manga' => $generos,
         'mangas' => $manga,
-        'user' => $user
+        'user' => $user,
+        'rascunhos' => $rascunhos
       ]
     );
   }
