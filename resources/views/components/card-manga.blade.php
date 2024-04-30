@@ -1,5 +1,5 @@
 <div class="content">
-  <a href="/manga/{{ $id }}" class="manga-link">
+  <a href="{{ $route }}" class="manga-link">
     <div class="card">
       <div class="card-img">
         <img src="/images/manga/{{ $image }}" alt="Descrição da imagem">

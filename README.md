@@ -6,6 +6,6 @@ MangáRealm é um site criado para ajudar a comunidade de mangaká brasileira a 
 -   Acessar o menu "criar"
 -   Ir na aba "Criar Mangá"
 -   Preencher formulário com: Imagem do Mangá, Nome do Mangá, Gêneros e Sinopse
-    -   Recomendamos fortemente usar o [Gacha Life](https://lunime.com/gachaclub) para criar a Imagem do Mangá
+    -   Recomendamos fortemente usar o [Gacha Life](https://lunime.com/gachaclub) ou o [Copilot](https://copilot.microsoft.com/) da Microsoft para criar a Imagem do Mangá
 
 Para aqueles que queiram visuzaliar o código fonte, vá em <strong>recources -> views</strong>, e para CSS, JS, imagens, ect, vá na pasta <strong>public</strong>

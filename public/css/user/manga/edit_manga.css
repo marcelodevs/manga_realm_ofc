@@ -78,3 +78,8 @@ button[type="submit"]:hover {
 .form-group .row .col input {
   cursor: pointer;
 }
+
+img {
+  width: 200px;
+  height: 200px;
+}

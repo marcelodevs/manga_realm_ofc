@@ -96,6 +96,8 @@ main section .content {
 
 .card-description p {
   color: #fff;
+  font-size: 12px;
+  overflow-wrap: break-word;
 }
 
 .manga-link:hover .card-description {

@@ -34,7 +34,7 @@
           <h1>Atualizados hoje</h1>
           <hr>
           <x-card-manga>
-            <x-slot name="id">{{ $manga->id }}</x-slot>
+            <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
             <x-slot name="image">{{ $manga->image }}</x-slot>
             <x-slot name="name">{{ $manga->name }}</x-slot>
             <x-slot name="categories">{{ $manga->categorys }}</x-slot>
@@ -47,7 +47,7 @@
           <h1>Autualizados recentemente</h1>
           <hr>
           <x-card-manga>
-            <x-slot name="id">{{ $manga->id }}</x-slot>
+            <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
             <x-slot name="image">{{ $manga->image }}</x-slot>
             <x-slot name="name">{{ $manga->name }}</x-slot>
             <x-slot name="categories">{{ $manga->categorys }}</x-slot>
@@ -60,7 +60,7 @@
           <h1>Outros</h1>
           <hr>
           <x-card-manga>
-            <x-slot name="id">{{ $manga->id }}</x-slot>
+            <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
             <x-slot name="image">{{ $manga->image }}</x-slot>
             <x-slot name="name">{{ $manga->name }}</x-slot>
             <x-slot name="categories">{{ $manga->categorys }}</x-slot>

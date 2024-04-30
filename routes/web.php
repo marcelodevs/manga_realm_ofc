@@ -21,16 +21,18 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 /* MANGÁ */
 
-Route::get('/manga/{id}', [MangaController::class, 'show']);
+Route::get('/manga/{id}', [MangaController::class, 'show'])->name('show.manga');
 Route::get('/create/manga', [MangaController::class, 'create'])->middleware('auth');
+Route::get('/manga/edit/{id}', [MangaController::class, 'edit'])->middleware('auth')->name('edit.manga');
 
 Route::post('/create/manga', [MangaController::class, 'store'])->middleware('auth')->name('create.manga');
+Route::post('/manga/edit/{id}', [MangaController::class, 'update'])->middleware('auth')->name('update.manga');
 
 /* CAPÍTULO */
 
 Route::get('/chapter/{id}', [ChapterController::class, 'show']);
-Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware('auth');
 Route::get('/create/chapter', [ChapterController::class, 'create'])->middleware('auth');
+Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware('auth');
 
 Route::post('/save-as-draft', [ChapterController::class, 'saveAsDraft'])->middleware('auth')->name('save.as.draft');
 Route::post('/create/chapter', [ChapterController::class, 'store'])->middleware('auth')->name('create.chapter');
