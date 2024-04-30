@@ -25,6 +25,11 @@ main {
   flex-wrap: wrap;
 }
 
+main section {
+  max-width: 100%;
+  overflow: auto;
+}
+
 main section .content {
   display: flex;
   gap: 10px;

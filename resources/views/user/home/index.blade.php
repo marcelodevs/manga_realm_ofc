@@ -24,49 +24,53 @@
 
 @section('main')
   @if (count($mangas) > 0)
-    @foreach ($mangas as $manga)
-      @php
-        $today = now()->format('Y-m-d');
+    @php
+      $groupedMangas = [
+        'today' => [],
+        'recent' => [],
+        'others' => [],
+      ];
+
+      $today = now()->format('Y-m-d');
+      $recentDate = now()->subDays(3)->format('Y-m-d');
+
+      foreach ($mangas as $manga) {
         $mangaDate = $manga->updated_at->format('Y-m-d');
-      @endphp
-      @if ($mangaDate == $today)
-        <section class="today">
-          <h1>Atualizados hoje</h1>
+        if ($mangaDate == $today) {
+          $groupedMangas['today'][] = $manga;
+        } elseif ($mangaDate >= $recentDate && $mangaDate < $today) {
+          $groupedMangas['recent'][] = $manga;
+        } else {
+          $groupedMangas['others'][] = $manga;
+        }
+      }
+    @endphp
+
+    @foreach ($groupedMangas as $category => $mangasGroup)
+      @if (count($mangasGroup) > 0)
+        <section>
+          <h1>
+            @if ($category == 'today')
+              Atualizados hoje
+            @elseif ($category == 'recent')
+              Atualizados recentemente
+            @else
+              Outros
+            @endif
+          </h1>
           <hr>
-          <x-card-manga>
-            <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
-            <x-slot name="image">{{ $manga->image }}</x-slot>
-            <x-slot name="name">{{ $manga->name }}</x-slot>
-            <x-slot name="categories">{{ $manga->categorys }}</x-slot>
-            <x-slot name="qtd_chapters">{{ $manga->qtd_chapter }}</x-slot>
-            <x-slot name="synopse">{{ $manga->synopsis }}</x-slot>
-          </x-card-manga>
-        </section>
-      @elseif ($mangaDate == now()->subDay()->format('Y-m-d'))
-        <section class="yesterday">
-          <h1>Autualizados recentemente</h1>
-          <hr>
-          <x-card-manga>
-            <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
-            <x-slot name="image">{{ $manga->image }}</x-slot>
-            <x-slot name="name">{{ $manga->name }}</x-slot>
-            <x-slot name="categories">{{ $manga->categorys }}</x-slot>
-            <x-slot name="qtd_chapters">{{ $manga->qtd_chapter }}</x-slot>
-            <x-slot name="synopse">{{ $manga->synopsis }}</x-slot>
-          </x-card-manga>
-        </section>
-      @else
-        <section class="others">
-          <h1>Outros</h1>
-          <hr>
-          <x-card-manga>
-            <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
-            <x-slot name="image">{{ $manga->image }}</x-slot>
-            <x-slot name="name">{{ $manga->name }}</x-slot>
-            <x-slot name="categories">{{ $manga->categorys }}</x-slot>
-            <x-slot name="qtd_chapters">{{ $manga->qtd_chapter }}</x-slot>
-            <x-slot name="synopse">{{ $manga->synopsis }}</x-slot>
-          </x-card-manga>
+          <div class="cards-container d-flex gap-1">
+            @foreach ($mangasGroup as $manga)
+              <x-card-manga>
+                <x-slot name="route">{{ route('show.manga', $manga->id) }}</x-slot>
+                <x-slot name="image">{{ $manga->image }}</x-slot>
+                <x-slot name="name">{{ $manga->name }}</x-slot>
+                <x-slot name="categories">{{ $manga->categorys }}</x-slot>
+                <x-slot name="qtd_chapters">{{ $manga->qtd_chapter }}</x-slot>
+                <x-slot name="synopse">{{ $manga->synopsis }}</x-slot>
+              </x-card-manga>
+            @endforeach
+          </div>
         </section>
       @endif
     @endforeach
