@@ -86,6 +86,8 @@
   </script>
 @endsection
 
-<section class="btn-voltar">
-  <button onclick="voltar()" class="voltar">⬆</button>
-</section>
+@section('others')
+  <section class="btn-voltar">
+    <button onclick="voltar()" class="voltar">⬆</button>
+  </section>
+@endsection
