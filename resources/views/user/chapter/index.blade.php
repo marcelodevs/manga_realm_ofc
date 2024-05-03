@@ -5,16 +5,23 @@
 @section('main')
 
   <div class="acoes">
-    <a href="#"><button>Anterior</button></a>
-    <a href="/manga/{{ $chapter->manga_id }}"><button>Mangá</button></a>
-    <a href="#"><button>Próximo</button></a>
+    <a href="{{ ($back_chapter) ? '/chapter/' . $back_chapter : '/manga/' . $chapter->manga_id }}">
+      <button>
+        {{ ($back_chapter) ? 'Anterior' : 'Página do Mangá' }}
+      </button>
+    </a>
+    <a href="{{ ($next_chapter) ? '/chapter/' . $next_chapter : '/manga/' . $chapter->manga_id }}">
+      <button>
+        {{ ($next_chapter) ? 'Anterior' : 'Página do Mangá' }}
+      </button>
+    </a>
   </div>
 
   <br>
 
   <div class="manga">
     <div class="manga_nome">
-      <p>{{ $manga_name }}</p>
+      <a href="/manga/{{ $chapter->manga_id }}" class="nav-link text-light p-0 fw-bold">{{ $manga_name }}</a>
     </div>
     <br>
     <div class="numero_capitulo">
@@ -38,9 +45,16 @@
   </div>
 
   <div class="acoes">
-    <a href="#"><button>Anterior</button></a>
-    <a href="/manga/{{ $chapter->manga_id }}"><button>Mangá</button></a>
-    <a href="#"><button>Próximo</button></a>
+    <a href="{{ ($back_chapter) ? '/chapter/' . $back_chapter : '/manga/' . $chapter->manga_id }}">
+      <button>
+        {{ ($back_chapter) ? 'Anterior' : 'Página do Mangá' }}
+      </button>
+    </a>
+    <a href="{{ ($next_chapter) ? '/chapter/' . $next_chapter : '/manga/' . $chapter->manga_id }}">
+      <button>
+        {{ ($next_chapter) ? 'Próximo' : 'Página do Mangá' }}
+      </button>
+    </a>
   </div>
 
   <div class="comentarios-container">
@@ -60,6 +74,13 @@
     <hr>
     <p>Nenhum comentário adicionado, seja o primeiro a comentar!</p>
   </div>
+@endsection
+
+@section('others')
+  <section class="btn-voltar">
+    <button onclick="voltar()" class="voltar">⬆</button>
+  </section>
+@endsection
 
   <script>
     function voltar() {
@@ -84,10 +105,3 @@
       }
     }
   </script>
-@endsection
-
-@section('others')
-  <section class="btn-voltar">
-    <button onclick="voltar()" class="voltar">⬆</button>
-  </section>
-@endsection

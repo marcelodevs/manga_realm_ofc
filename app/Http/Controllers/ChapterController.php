@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\DB;
 
 class ChapterController extends Controller
 {
+  static function next_chapter($index, $manga_id)
+  {
+    return Chapter::where('manga_id', $manga_id)
+      ->where('sketch', 'f')
+      ->where('index', '>', $index)
+      ->orderBy('index', 'asc')
+      ->first();
+  }
+
+  static function back_chapter($index, $manga_id)
+  {
+    return Chapter::where('manga_id', $manga_id)
+      ->where('sketch', 'f')
+      ->where('index', '<', $index)
+      ->orderBy('index', 'desc')
+      ->first();
+  }
+
   public function show(): View
   {
     $id = request('id');
@@ -19,15 +37,33 @@ class ChapterController extends Controller
 
     $manga_name = MangaController::byId($chapter->manga_id);
 
+    $next_chapter = static::next_chapter($chapter->index, $chapter->manga_id);
+    $back_chapter = static::back_chapter($chapter->index, $chapter->manga_id);
+
+    if ($next_chapter != null) {
+      $next_chapter = $next_chapter->id;
+    } else {
+      $next_chapter = false;
+    }
+
+    if ($back_chapter != null) {
+      $back_chapter = $back_chapter->id;
+    } else {
+      $back_chapter = false;
+    }
+
     return view(
       'user.chapter.index',
       [
         'user' => $user,
         'chapter' => $chapter,
-        'manga_name' => $manga_name->name
+        'manga_name' => $manga_name->name,
+        'next_chapter' => $next_chapter,
+        'back_chapter' => $back_chapter,
       ]
     );
   }
+
 
   public function create(): View
   {
