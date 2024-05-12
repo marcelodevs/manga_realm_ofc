@@ -27,5 +27,17 @@
   <!-- JQuery -->
   <script src="/js/jquery-3.7.1.min.js"></script>
   <script @yield('scripts')></script>
+  <script>
+    // Tempo restante em segundos antes do timeout da sessão (vindo do Laravel)
+    var sessionTimeout = {{ config('session.lifetime') * 60 }}; // Converte minutos em segundos
+
+    // Função para exibir alerta quando o tempo estiver prestes a expirar
+    function exibirAlertaTimeout() {
+      alert("Sua sessão está expirada! Por favor, copie seu rascunho e atualize a página para continuar escrevendo sem perder seu progresso.");
+    }
+
+    // Ativa o alerta 5 minutos antes do tempo de expiração da sessão
+    setTimeout(exibirAlertaTimeout, (sessionTimeout - 300) * 1000); // 300 segundos = 5 minutos
+  </script>
 </body>
 </html>
