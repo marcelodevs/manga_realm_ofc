@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Chapter;
 use App\Models\Manga;
 use App\Models\User;
 use Exception;
@@ -15,20 +16,22 @@ class UserController extends Controller
   public function index(): View
   {
     $generos = Category::all();
-    $manga = MangaController::index();
+    $mangas = MangaController::index();
     $user = auth()->user();
-    $rascunhos = DB::table('chapters')
-      ->where('sketch', true)
-      ->get();
-    return view(
-      'user.home.index',
-      [
-        'genero_manga' => $generos,
-        'mangas' => $manga,
-        'user' => $user,
-        'rascunhos' => $rascunhos
-      ]
-    );
+    $rascunhos = [];
+
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+    }
+
+    return view('user.home.index', [
+      'genero_manga' => $generos,
+      'mangas' => $mangas,
+      'user' => $user,
+      'rascunhos' => $rascunhos
+    ]);
   }
 
   public function showAuthors(): View

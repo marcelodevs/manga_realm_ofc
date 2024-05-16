@@ -37,8 +37,8 @@ class ChapterController extends Controller
 
     $manga_name = MangaController::byId($chapter->manga_id);
 
-    $next_chapter = static::next_chapter($chapter->index, $chapter->manga_id);
-    $back_chapter = static::back_chapter($chapter->index, $chapter->manga_id);
+    $next_chapter = self::next_chapter($chapter->index, $chapter->manga_id);
+    $back_chapter = self::back_chapter($chapter->index, $chapter->manga_id);
 
     if ($next_chapter != null) {
       $next_chapter = $next_chapter->id;
@@ -88,6 +88,7 @@ class ChapterController extends Controller
     $chapter->created_at = Carbon::now();
     $chapter->updated_at = Carbon::now();
     $chapter->content = $request->content;
+    $chapter->user_id = auth()->id();
 
     if (isset($request->sketch) && $request->sketch <> null) {
       $chapter->sketch = 1;
