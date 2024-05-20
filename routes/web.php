@@ -3,12 +3,12 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\HelpController;
 use Illuminate\Support\Facades\Route;
 
 /* USUÁRIO */
 
 Route::get('/', [UserController::class, 'index']);
-Route::get('/help', [UserController::class, 'showHelper']);
 Route::get('/profile', [UserController::class, 'showAuthors']);
 Route::get('/authors', [UserController::class, 'showAuthors']);
 Route::get('/author/{id}', [UserController::class, 'showAuthorUser']);
@@ -37,3 +37,9 @@ Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware
 Route::post('/save-as-draft', [ChapterController::class, 'saveAsDraft'])->middleware('auth')->name('save.as.draft');
 Route::post('/create/chapter', [ChapterController::class, 'store'])->middleware('auth')->name('create.chapter');
 Route::post('/chapter/edit/{id}', [ChapterController::class, 'update'])->middleware('auth')->name('update.chapter');
+
+/* AJUDA */
+
+Route::get('/help', [HelpController::class, 'show']);
+Route::get('/help/navigation', [HelpController::class, 'navigation'])->name('help.navigation');
+Route::get('/help/create', [HelpController::class, 'create'])->name('help.create');
