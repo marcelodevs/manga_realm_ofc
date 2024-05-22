@@ -6,8 +6,6 @@ use App\Models\Category;
 use App\Models\Chapter;
 use App\Models\Manga;
 use App\Models\User;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -65,12 +63,21 @@ class UserController extends Controller
     $category_name = request('id');
     $category = MangaCategoryController::show($category_name);
     $mangaIds = [];
+    $rascunhos = [];
 
-    foreach ($category as $mangaCategory) {
-      $mangaIds[] = $mangaCategory->manga_id;
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
     }
 
-    $mangas = MangaController::byId($mangaIds);
+    foreach ($category as $mangaCategory) {
+      $mangaIds[] = $mangaCategory;
+    }
+
+    foreach ($mangaIds as $id) {
+      $mangas = MangaController::byId($id);
+    }
 
     return view(
       'user.home.categorys',
@@ -78,7 +85,8 @@ class UserController extends Controller
         'user' => $user,
         'genero_manga' => $generos,
         'category' => $category_name,
-        'mangas' => $mangas
+        'mangas' => $mangas,
+        'rascunhos' => $rascunhos
       ]
     );
   }

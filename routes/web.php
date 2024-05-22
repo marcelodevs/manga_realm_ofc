@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'index']);
 Route::get('/profile', [UserController::class, 'showAuthors']);
 Route::get('/authors', [UserController::class, 'showAuthors']);
-Route::get('/author/{id}', [UserController::class, 'showAuthorUser']);
 Route::get('/categorys/{id}', [UserController::class, 'showCategorys']);
 Route::get('/create', [UserController::class, 'create'])->middleware('auth');
 
