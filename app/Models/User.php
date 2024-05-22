@@ -76,4 +76,14 @@ class User extends Authenticatable
   {
     return $this->hasMany(Manga::class);
   }
+
+  public function mangaComments()
+  {
+    return $this->hasMany(MangaComment::class);
+  }
+
+  public function chapterComments()
+  {
+    return $this->hasMany(ChapterComment::class);
+  }
 }

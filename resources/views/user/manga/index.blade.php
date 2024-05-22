@@ -3,6 +3,11 @@
 @section('css', 'user/manga/manga')
 
 @section('main')
+  @if(session('error'))
+    <div class="alert alert-danger" role="alert">
+      {{session('error')}}
+    </div>
+  @endif
   <div class="card mb-12 p-3 w-75 first" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
@@ -31,7 +36,7 @@
       <div class="card-body">
         <h5 class="card-title">Sinopse:</h5>
         <p class="card-text">{{ $manga->synopsis }}</p>
-        <h5 class="card-title">Avaliação:</h5>
+        {{-- <h5 class="card-title">Avaliação:</h5>
         <p class="card-text">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="yellow" class="bi bi-star-fill" viewBox="0 0 16 16">
             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -48,7 +53,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="yellow" class="bi bi-star-fill" viewBox="0 0 16 16">
             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
           </svg>
-        </p>
+        </p> --}}
       </div>
     </div>
   </div>
@@ -63,22 +68,27 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="d-flex justify-content-start align-items-center gap-3 p-0">
-            <img src="/images/manga/{{ $manga->image }}" width="50" class="rounded-circle">
-            <p class="text-dark p-0 fs-6">{{ $manga->name }}</p>
-            <p class="text-dark p-0 fs-5">{{ $manga->name }}</p>
-          </div>
+          @foreach ($comments as $comment)
+            <div class="d-flex justify-content-start align-items-center gap-3 p-0 comment">
+              <img src="/storage/{{ $comment->user->profile_photo_path }}" width="50" class="rounded-circle">
+              <div class="d-flex flex-column md-5 justify-content-center">
+                <p class="text-dark p-0 fs-6">{{ $comment->user->name }}</p>
+                <p class="text-dark p-0 fs-5">{{ $comment->comment }}</p>
+              </div>
+            </div>
+          @endforeach
         </div>
         <div class="modal-footer justify-content-center">
-          <form action="">
+          <form action="{{ route('comment.manga', $manga->id) }}", method="POST" autocomplete="off">
+            @csrf
             <div class="input-group mb-3 d-flex aligin-items-center">
               @auth
-                <input type="text" class="form-control w-75 m-0" placeholder="Escreva seu comentário" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                <input type="text" class="form-control w-75 m-0" placeholder="Escreva seu comentário" aria-describedby="button-addon2" name="comment">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Enviar</button>
               @endauth
               @guest
                 <input type="text" class="form-control w-75" placeholder="Faça o login para comentar" disabled aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Button</button>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" disabled>Enviar</button>
               @endguest
             </div>
           </form>

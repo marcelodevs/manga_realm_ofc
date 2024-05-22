@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\MangaCommentController;
 use Illuminate\Support\Facades\Route;
 
 /* USUÁRIO */
@@ -27,6 +28,8 @@ Route::get('/manga/edit/{id}', [MangaController::class, 'edit'])->middleware('au
 
 Route::post('/create/manga', [MangaController::class, 'store'])->middleware('auth')->name('create.manga');
 Route::post('/manga/edit/{id}', [MangaController::class, 'update'])->middleware('auth')->name('update.manga');
+Route::post('/manga/{id}', [MangaCommentController::class, 'store'])->middleware('auth')->name('comment.manga');
+// Route::post('/manga/{id}', [FavoriteController::class, 'store'])->middleware('auth')->name('manga.favorite');
 
 /* CAPÍTULO */
 

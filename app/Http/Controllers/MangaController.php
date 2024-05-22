@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Chapter;
 use App\Models\Manga;
 use App\Models\MangaCategory;
+use App\Models\MangaComment;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -39,13 +41,16 @@ class MangaController extends Controller
 
     $categories = CategorysController::byId($categories_id);
     $user = auth()->user();
+
+    $comments = MangaCommentController::index($id);
     return view(
       'user.manga.index',
       [
         'manga' => $manga[0],
         'user' => $user,
         'chapters' => $chapters,
-        'categories' => $categories
+        'categories' => $categories,
+        'comments' => $comments
       ]
     );
   }

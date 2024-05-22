@@ -94,11 +94,10 @@ class ChapterController extends Controller
       $chapter->sketch = 1;
     } else {
       $chapter->sketch = 0;
+      $manga_update = Manga::find($request->manga_id);
+
+      $manga_update->qtd_chapter += 1;
     }
-
-    $manga_update = Manga::find($request->manga_id);
-
-    $manga_update->qtd_chapter += 1;
 
     try {
       $chapter->save();

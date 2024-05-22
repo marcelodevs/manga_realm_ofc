@@ -22,7 +22,7 @@
     </div>
     <div class="form-group">
       <label for="content">Conteúdo</label>
-      <textarea name="content" id="content" spellcheck="false" autofocus spellcheck="true" required>{{ $chapter->content }}</textarea>
+      <textarea name="content" id="content" autofocus spellcheck="true" required>{{ $chapter->content }}</textarea>
       <span id="char-count">0</span> caracteres,
       <span id="word-count">0</span> palavras
     </div>

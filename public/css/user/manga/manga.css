@@ -15,3 +15,17 @@
 
   background: rgba(0, 0, 0, .6);
 }
+
+.modal .modal-body {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.modal .modal-body .comment {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.top-35 {
+  top: 35%;
+}

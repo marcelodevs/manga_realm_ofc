@@ -29,4 +29,9 @@ class Chapter extends Model
   {
     return $this->belongsTo('App\Models\Manga');
   }
+
+  public function comments()
+  {
+    return $this->hasMany(ChapterComment::class);
+  }
 }

@@ -4,14 +4,14 @@
 
 @section('css', 'user/create/chapter/new_chapter')
 
-@if(session('error'))
+@if (session('error'))
   <div class="alert alert-danger" role="alert">
-    {{session('error')}}
+    {{ session('error') }}
   </div>
 @endif
 
 @section('main')
-  @if ($mangas <> null)
+  @if (!is_null($mangas))
     <form action="{{ route('create.chapter') }}" method="post" autocomplete="off" class="new-chapter" id="chapterForm">
       @csrf
       <h1>Novo Capítulo</h1>
@@ -34,7 +34,7 @@
       </div>
       <div class="form-group">
         <label for="content">Conteúdo</label>
-        <textarea name="content" id="content" spellcheck="false" required></textarea>
+        <textarea name="content" id="content" required></textarea>
         <span id="char-count">0</span> caracteres,
         <span id="word-count">0</span> palavras
       </div>
@@ -54,33 +54,6 @@
       </div>
     </div>
   @endif
-
-  <script>
-    function autoSaveDraft() {
-      let formData = new FormData(document.getElementById('chapterForm'));
-
-      if (formData.get('index') && formData.get('manga_id') && formData.get('title') && formData.get('content')) {
-        fetch('{{ route("save.as.draft") }}', {
-          method: 'POST',
-          body: formData
-        })
-          .then(response => {
-            if (response.ok) {
-              console.log('Salvo como rascunho.');
-            } else {
-              console.error('Erro ao salvar como rascunho.');
-            }
-          })
-          .catch(error => {
-            console.error('Erro ao salvar como rascunho:', error);
-          });
-      } else {
-        console.error('Por favor, preencha todos os campos obrigatórios.');
-      }
-    }
-
-    setInterval(autoSaveDraft, 60000); // 60000 ms = 1 minuto
-  </script>
 
 @endsection
 

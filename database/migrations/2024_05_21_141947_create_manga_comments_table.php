@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('chapters', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users')->after('manga_id');
+        Schema::create('manga_comments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('manga_id')->constrained('mangas');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('comment');
+            $table->timestamps();
         });
     }
 
@@ -21,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('chapters', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('manga_comments');
     }
 };
