@@ -1,5 +1,7 @@
 @extends('layouts.navbar')
 
+@section('title', '• ' . $manga->name)
+
 @section('css', 'user/manga/manga')
 
 @section('main')
@@ -24,6 +26,7 @@
           </p>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentsModalToggle" role="button">
             Ver comentários
+          </button>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chaptersModalToggle" role="button">
             Ver capítulos
           </button>
@@ -108,8 +111,11 @@
         </div>
         <div class="modal-body">
           <div class="d-flex flex-column gap-2">
-            @foreach ($chapters as $item)
-              <a href="/chapter/{{ $item->id }}" class="text-decoration-none text-dark fs-6 p-1 nav-link">Capítulo {{ $item->index }} - {{ $item->title }}</a>
+            @foreach ($chapters as $chapter)
+              <a href="/chapter/{{ $chapter->id }}" 
+                class="text-decoration-none text-dark {{ isset($views[$chapter->id]) && $views[$chapter->id] ? 'opacity-50' : '' }} fs-6 p-1 nav-link">
+                  Capítulo {{ $chapter->index }} - {{ $chapter->title }}
+              </a>
             @endforeach
           </div>
         </div>

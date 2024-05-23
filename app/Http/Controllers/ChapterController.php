@@ -52,6 +52,10 @@ class ChapterController extends Controller
       $back_chapter = false;
     }
 
+    if ($user && !ViewChapterController::validation($user->id, $chapter->id)) {
+      ViewChapterController::store($user->id, $chapter->id);
+    }
+
     return view(
       'user.chapter.index',
       [

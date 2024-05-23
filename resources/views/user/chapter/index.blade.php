@@ -12,7 +12,7 @@
     </a>
     <a href="{{ ($next_chapter) ? '/chapter/' . $next_chapter : '/manga/' . $chapter->manga_id }}">
       <button>
-        {{ ($next_chapter) ? 'Anterior' : 'Página do Mangá' }}
+        {{ ($next_chapter) ? 'Próximo' : 'Página do Mangá' }}
       </button>
     </a>
   </div>

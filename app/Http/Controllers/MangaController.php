@@ -28,31 +28,33 @@ class MangaController extends Controller
   public function show(): View
   {
     $id = request('id');
-    $manga = Manga::where('id', $id)->get();
-    $chapters = DB::table('chapters')
-      ->where('manga_id', $id)
-      ->where(function ($query) {
-        return $query
-          ->where('sketch', '!=', 1);
-      })
+    $manga = Manga::find($id);
+    $chapters = Chapter::where('manga_id', $id)
+      ->where('sketch', '!=', 1)
       ->orderBy('index')
       ->get();
-    $categories_id = MangaCategoryController::byManga($id);
 
+    $categories_id = MangaCategoryController::byManga($id);
     $categories = CategorysController::byId($categories_id);
     $user = auth()->user();
 
     $comments = MangaCommentController::index($id);
-    return view(
-      'user.manga.index',
-      [
-        'manga' => $manga[0],
-        'user' => $user,
-        'chapters' => $chapters,
-        'categories' => $categories,
-        'comments' => $comments
-      ]
-    );
+
+    $views = [];
+    if ($user) {
+      foreach ($chapters as $chapter) {
+        $views[$chapter->id] = ViewChapterController::validation($user->id, $chapter->id);
+      }
+    }
+
+    return view('user.manga.index', [
+      'manga' => $manga,
+      'user' => $user,
+      'chapters' => $chapters,
+      'categories' => $categories,
+      'comments' => $comments,
+      'views' => $views,
+    ]);
   }
 
   /**
