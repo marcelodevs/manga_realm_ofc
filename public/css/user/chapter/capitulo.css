@@ -6,7 +6,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 50%;
+  width: 60%;
 
   position: absolute;
   left: 50%;
@@ -44,20 +44,27 @@ main .content pre {
 .acoes {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
-button {
+button:not(.lr-group button) {
   padding: 10px 20px;
   border: none;
-  color: white;
-  background-color: black;
+  color: #fff;
+  background: transparent;
+  border: 1px solid #fff;
   border-radius: 20px;
   cursor: pointer;
   transition: background .3s ease;
 }
 
-button:hover {
-  background: darkblue;
+button:hover:not(.lr-group button) {
+  color: #00008b;
+  background-color: #fff;
+}
+
+.show_more {
+  text-align: center;
 }
 
 /* COMENTÁRIOS */
@@ -78,25 +85,43 @@ button:hover {
   display: flex;
   gap: 10px;
   justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
-.comentarios-container .public-comment .send-message input {
+.comentarios-container .public-comment .send-message textarea {
   width: 100%;
   border: none;
   outline: none;
   border-radius: 10px;
   padding: 10px;
   letter-spacing: 1px;
+  resize: none;
+  overflow: hidden;
 }
 
-.comentarios-container .public-comment .send-message input[type='text']:disabled,
+.comentarios-container .public-comment .send-message button {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #fff;
+  height: 45px;
+  transition: all .6s ease;
+}
+
+.comentarios-container .public-comment .send-message button:hover {
+  color: #00008b;
+  background-color: #fff;
+}
+
+
+.comentarios-container .public-comment .send-message textarea:disabled,
 .comentarios-container .public-comment .send-message button[type='submit']:disabled {
   cursor: no-drop;
 }
 
-.comentarios-container .comments .infor-user {
+.comentarios-container .comments .info-user {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -111,21 +136,20 @@ button:hover {
   margin-top: 5px;
 }
 
-.comentarios-container .comments .actions p {
-  font-size: 14px;
-  cursor: pointer;
-}
-
 /* BOTÃO DE VOLTAR */
 
-.btn-voltar {
+.btn-voltar button {
   border-radius: 50%;
   border: none;
-  background-color: #00008b;
+  background-color: #00008b !important;
   z-index: 20;
   position: fixed;
   font-size: 1.5em;
   bottom: 10%;
   left: 90%;
   cursor: pointer;
+}
+
+.btn-voltar button:hover {
+  background-color: transparent !important;
 }

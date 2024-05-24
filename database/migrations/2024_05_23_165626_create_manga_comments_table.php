@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chapter_comments', function (Blueprint $table) {
+        Schema::create('manga_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('chapter_id')->constrained('chapters');
+            $table->foreignId('manga_id')->constrained('mangas');
             $table->foreignId('user_id')->constrained('users');
-            $table->string('comment');
+            $table->mediumText('comment');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chapter_comments');
+        Schema::dropIfExists('manga_comments');
     }
 };

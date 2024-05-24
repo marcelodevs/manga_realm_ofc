@@ -56,14 +56,17 @@ class ChapterController extends Controller
       ViewChapterController::store($user->id, $chapter->id);
     }
 
+    $comments = ChapterCommentController::index($id);
+
     return view(
       'user.chapter.index',
       [
         'user' => $user,
         'chapter' => $chapter,
-        'manga_name' => $manga_name->name,
+        'comments' => $comments,
         'next_chapter' => $next_chapter,
         'back_chapter' => $back_chapter,
+        'manga_name' => $manga_name->name,
       ]
     );
   }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChapterCommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\ChapterController;
@@ -36,9 +37,9 @@ Route::get('/chapter/{id}', [ChapterController::class, 'show']);
 Route::get('/create/chapter', [ChapterController::class, 'create'])->middleware('auth');
 Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware('auth');
 
-Route::post('/save-as-draft', [ChapterController::class, 'saveAsDraft'])->middleware('auth')->name('save.as.draft');
 Route::post('/create/chapter', [ChapterController::class, 'store'])->middleware('auth')->name('create.chapter');
 Route::post('/chapter/edit/{id}', [ChapterController::class, 'update'])->middleware('auth')->name('update.chapter');
+Route::post('/chapter/{id}', [ChapterCommentController::class, 'store'])->middleware('auth')->name('comment.chapter');
 
 /* AJUDA */
 
