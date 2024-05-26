@@ -115,6 +115,25 @@ class ChapterController extends Controller
     }
   }
 
+  public function storeSketch(Request $request)
+  {
+    $chapter = new Chapter;
+
+    $chapter->manga_id = $request->manga_id;
+    $chapter->index = $request->index;
+    $chapter->title = $request->title;
+    $chapter->content = $request->content;
+    $chapter->user_id = auth()->id();
+    $chapter->sketch = 1;
+
+    try {
+      $chapter->save();
+      return redirect('/create');
+    } catch (\Exception $e) {
+      return redirect('/create/chapter')->with('error', $e->getMessage());
+    }
+  }
+
   public function edit(): View
   {
     $id = request('id');
@@ -147,7 +166,7 @@ class ChapterController extends Controller
     $chapter->title = $request->title;
     $chapter->content = $request->content;
 
-    if (isset($request->sketch) && $request->sketch <> null) {
+    if (isset($request->sketch) && !is_null($request->sketch)) {
       $chapter->sketch = 1;
       try {
         $chapter->save();

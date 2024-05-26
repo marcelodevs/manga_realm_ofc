@@ -39,6 +39,7 @@ Route::get('/create/chapter', [ChapterController::class, 'create'])->middleware(
 Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware('auth');
 
 Route::post('/create/chapter', [ChapterController::class, 'store'])->middleware('auth')->name('create.chapter');
+Route::post('/chapter/save_sketch', [ChapterController::class, 'storeSketch'])->middleware('auth')->name('save.chapter.sketch');
 Route::post('/chapter/edit/{id}', [ChapterController::class, 'update'])->middleware('auth')->name('update.chapter');
 Route::post('/chapter/{id}', [ChapterCommentController::class, 'store'])->middleware('auth')->name('comment.chapter');
 

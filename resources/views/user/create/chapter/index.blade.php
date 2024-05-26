@@ -12,7 +12,7 @@
 
 @section('main')
   @if (!is_null($mangas))
-    <form action="{{ route('create.chapter') }}" method="post" autocomplete="off" class="new-chapter" id="chapterForm">
+    <form method="post" autocomplete="off" class="new-chapter" id="chapterForm">
       @csrf
       <h1>Novo Capítulo</h1>
       <div class="form-group">
@@ -40,8 +40,8 @@
       </div>
       <br>
       <div class="btn-group">
-        <button type="submit" name="sketch" value="S">Salvar Rascunho</button>
-        <button type="submit">Enviar</button>
+        <button type="submit" formaction="{{ route('save.chapter.sketch') }}" name="sketch" value="S">Salvar Rascunho</button>
+        <button type="submit" formaction="{{ route('create.chapter') }}">Enviar</button>
       </div>
     </form>
   @else
