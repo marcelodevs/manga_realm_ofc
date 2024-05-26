@@ -43,15 +43,9 @@
           </div>
         </div>
       </a>
-      <x-modal-author>
+      <x-modal-author :manga="$mangas">
         <x-slot name="user_name">{{ $author->name }}</x-slot>
         <x-slot name="user_image">{{ stripslashes(trim(preg_replace('/(\'|")/', '', json_encode($author->profile_photo_path)))) }}</x-slot>
-        @foreach ($mangas as $m)
-          <x-slot name="id">{{ $m->id }}</x-slot>
-          <x-slot name="image">{{ $m->image }}</x-slot>
-          <x-slot name="name">{{ $m->name }}</x-slot>
-          <x-slot name="qtd_chapters">{{ $m->qtd_chapter }}</x-slot>
-        @endforeach
       </x-modal-author>
     @endforeach
   @else

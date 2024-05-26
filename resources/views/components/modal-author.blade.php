@@ -1,3 +1,5 @@
+@props(['manga'])
+
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -28,12 +30,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center w-100">
-          <x-card-manga>
-            <x-slot name='id'>{{ $id }}</x-slot>
-            <x-slot name='image'>{{ $image }}</x-slot>
-            <x-slot name='name'>{{ $name }}</x-slot>
-            <x-slot name='qtd_chapters'>{{ $qtd_chapters }}</x-slot>
-          </x-card-manga>
+          @foreach ($manga as $item)
+            <x-card-manga>
+              <x-slot name="route">{{ route('show.manga', $item->id) }}</x-slot>
+              <x-slot name="name">{{ $item->name }}</x-slot>
+              <x-slot name="image">{{ $item->image }}</x-slot>
+              <x-slot name="qtd_chapters">{{ $item->qtd_chapter }}</x-slot>
+            </x-card-manga>
+          @endforeach
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Ver perfil</button>
