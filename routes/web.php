@@ -29,6 +29,7 @@ Route::get('/manga/edit/{id}', [MangaController::class, 'edit'])->middleware('au
 Route::post('/create/manga', [MangaController::class, 'store'])->middleware('auth')->name('create.manga');
 Route::post('/manga/edit/{id}', [MangaController::class, 'update'])->middleware('auth')->name('update.manga');
 Route::post('/manga/{id}', [MangaCommentController::class, 'store'])->middleware('auth')->name('comment.manga');
+Route::get('/search/manga', [MangaController::class, 'search'])->name('search.manga');
 // Route::post('/manga/{id}', [FavoriteController::class, 'store'])->middleware('auth')->name('manga.favorite');
 
 /* CAPÍTULO */
