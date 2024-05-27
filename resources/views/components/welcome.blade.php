@@ -1,4 +1,4 @@
-@props(['manga', 'rascunhos'])
+@props(['manga', 'rascunhos', 'favoritos'])
 
 @section('css', 'user/chapter/sketch')
 @section('css2', 'templates/card-manga')
@@ -18,13 +18,24 @@
 <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
   <div>
     <div class="flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+      </svg>
       <h2 class="ms-3 text-xl font-semibold text-gray-900">
-        <a href="">Meus Favoritos</a>
+        <a href="">Meus Favoritos ( {{ count($favoritos) }} )</a>
       </h2>
     </div>
+
+    <aside class="flex">
+      @foreach ($favoritos as $item)
+        <x-card-manga>
+          <x-slot name="route">{{ route('show.manga', $item->id) }}</x-slot>
+          <x-slot name="name">{{ $item->name }}</x-slot>
+          <x-slot name="image">{{ $item->image }}</x-slot>
+          <x-slot name="qtd_chapters">{{ $item->qtd_chapter }}</x-slot>
+        </x-card-manga>
+      @endforeach
+    </aside>
   </div>
 
   <div>

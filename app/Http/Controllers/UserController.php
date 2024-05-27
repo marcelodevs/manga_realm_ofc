@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Chapter;
-use App\Models\Manga;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -25,10 +24,10 @@ class UserController extends Controller
     }
 
     return view('user.home.index', [
+      'user'         => $user,
+      'mangas'       => $mangas,
+      'rascunhos'    => $rascunhos,
       'genero_manga' => $generos,
-      'mangas' => $mangas,
-      'user' => $user,
-      'rascunhos' => $rascunhos
     ]);
   }
 
@@ -41,10 +40,10 @@ class UserController extends Controller
     return view(
       'user.home.authors',
       [
-        'authors' => $authors,
-        'user' => $user,
+        'user'         => $user,
+        'mangas'       => $mangas,
+        'authors'      => $authors,
         'genero_manga' => $generos,
-        'mangas' => $mangas
       ]
     );
   }
@@ -82,11 +81,11 @@ class UserController extends Controller
     return view(
       'user.home.categorys',
       [
-        'user' => $user,
+        'user'         => $user,
+        'mangas'       => $mangas,
+        'rascunhos'    => $rascunhos,
         'genero_manga' => $generos,
-        'category' => $category_name,
-        'mangas' => $mangas,
-        'rascunhos' => $rascunhos
+        'category'     => $category_name,
       ]
     );
   }
@@ -106,12 +105,23 @@ class UserController extends Controller
     $mangas = DB::table('mangas')
       ->where('user_id', $user->id)
       ->get();
+    $favorite = array();
+
+    if (FavoriteController::index($user->id)->count() == 1) {
+      $manga = FavoriteController::index($user->id);
+      foreach ($manga as $item) {
+        $favorite[] = MangaController::byId($item->manga_id);
+      }
+    } else {
+      $favorite = false;
+    }
 
     return view(
       'dashboard',
       [
+        'mangas'    => $mangas,
+        'favorites' => $favorite,
         'rascunhos' => $rascunhos,
-        'mangas' => $mangas
       ]
     );
   }

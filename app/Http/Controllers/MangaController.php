@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Chapter;
 use App\Models\Manga;
 use App\Models\MangaCategory;
-use App\Models\MangaComment;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -47,13 +45,20 @@ class MangaController extends Controller
       }
     }
 
+    if (FavoriteController::index($user->id)->count() == 1) {
+      $favorite = true;
+    } else {
+      $favorite = false;
+    }
+
     return view('user.manga.index', [
-      'manga' => $manga,
-      'user' => $user,
-      'chapters' => $chapters,
+      'user'       => $user,
+      'views'      => $views,
+      'manga'      => $manga,
+      'comments'   => $comments,
+      'favorite'   => $favorite,
+      'chapters'   => $chapters,
       'categories' => $categories,
-      'comments' => $comments,
-      'views' => $views,
     ]);
   }
 
@@ -107,7 +112,6 @@ class MangaController extends Controller
     $manga->user_id = $user->id;
     $manga->name = $request->name;
     $manga->synopsis = $request->synopsis;
-    $manga->categorys = '{}';
     $manga->created_at = Carbon::now();
     $manga->updated_at = Carbon::now();
     $manga->qtd_chapter = 0;
@@ -163,10 +167,10 @@ class MangaController extends Controller
     return view(
       'user.manga.edit.index',
       [
-        'manga' => $manga[0],
-        'user' => $user,
-        'chapters' => $chapters,
-        'categories' => $all_categories,
+        'user'              => $user,
+        'manga'             => $manga[0],
+        'chapters'          => $chapters,
+        'categories'        => $all_categories,
         'categoriesByManga' => $categories
       ]
     );
@@ -210,7 +214,7 @@ class MangaController extends Controller
 
     return response()->json([
       'status' => true,
-      'data' => $mangas
+      'data'   => $mangas
     ]);
   }
 }

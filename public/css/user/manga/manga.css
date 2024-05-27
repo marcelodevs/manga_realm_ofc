@@ -29,3 +29,21 @@
 .top-35 {
   top: 35%;
 }
+
+.favorite {
+  position: absolute;
+  top: 19%;
+  left: 70%;
+  transform: translate(-70%, -19%);
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 999;
+}
+
+.favorite button {
+  border: none;
+  margin: 0;
+  padding: 0;
+}

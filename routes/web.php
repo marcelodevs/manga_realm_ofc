@@ -4,6 +4,7 @@ use App\Http\Controllers\ChapterCommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MangaCommentController;
 use Illuminate\Support\Facades\Route;
@@ -25,11 +26,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 Route::get('/manga/{id}', [MangaController::class, 'show'])->name('show.manga');
 Route::get('/create/manga', [MangaController::class, 'create'])->middleware('auth');
 Route::get('/manga/edit/{id}', [MangaController::class, 'edit'])->middleware('auth')->name('edit.manga');
+Route::get('/search/manga', [MangaController::class, 'search'])->name('search.manga');
+Route::get('/manga/favorite/{id}', [FavoriteController::class, 'store'])->middleware('auth')->name('favorite.manga');
 
 Route::post('/create/manga', [MangaController::class, 'store'])->middleware('auth')->name('create.manga');
 Route::post('/manga/edit/{id}', [MangaController::class, 'update'])->middleware('auth')->name('update.manga');
 Route::post('/manga/{id}', [MangaCommentController::class, 'store'])->middleware('auth')->name('comment.manga');
-Route::get('/search/manga', [MangaController::class, 'search'])->name('search.manga');
 // Route::post('/manga/{id}', [FavoriteController::class, 'store'])->middleware('auth')->name('manga.favorite');
 
 /* CAPÍTULO */
