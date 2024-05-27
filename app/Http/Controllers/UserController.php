@@ -107,13 +107,11 @@ class UserController extends Controller
       ->get();
     $favorite = array();
 
-    if (FavoriteController::index($user->id)->count() == 1) {
-      $manga = FavoriteController::index($user->id);
+    if (FavoriteController::byUser($user->id)->count() > 0) {
+      $manga = FavoriteController::byUser($user->id);
       foreach ($manga as $item) {
         $favorite[] = MangaController::byId($item->manga_id);
       }
-    } else {
-      $favorite = false;
     }
 
     return view(

@@ -45,7 +45,7 @@ class MangaController extends Controller
       }
     }
 
-    if (FavoriteController::index($user->id)->count() == 1) {
+    if (FavoriteController::byManga($manga->id)->count() == 1) {
       $favorite = true;
     } else {
       $favorite = false;

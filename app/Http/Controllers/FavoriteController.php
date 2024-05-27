@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
-  static function index(int $user_id)
+  static function byUser(int $user_id)
   {
     return Favorite::where('user_id', $user_id)->get();
+  }
+
+  static function byManga(int $manga_id)
+  {
+    return Favorite::where('manga_id', $manga_id)->get();
   }
 
   public function store()

@@ -32,7 +32,7 @@
         </div>
         <div class="profile">
           <button type="button">
-            <a href="/user/profile" class="nav-item text-decoration-none">
+            <a href="/dashboard" class="nav-item text-decoration-none">
               <img src="/storage/{{ stripslashes(trim(preg_replace('/(\'|")/', '', json_encode($user->profile_photo_path)))) }}" alt="oi">
               {{$user->name}}
             </a>
