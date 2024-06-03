@@ -16,10 +16,6 @@
       @csrf
       <h1>Novo Capítulo</h1>
       <div class="form-group">
-        <label for="id">Nº Capítulo</label>
-        <input type="number" name="index" id="id" required>
-      </div>
-      <div class="form-group">
         <label for="manga">Mangá: </label>
         <input type="text" list="mangas" name="manga_id" id="manga" required>
         <datalist id="mangas">
@@ -27,6 +23,10 @@
             <option value="{{ $manga->id }}">{{ $manga->id }} - {{ $manga->name }}</option>
           @endforeach
         </datalist>
+      </div>
+      <div class="form-group">
+        <label for="id">Nº Capítulo</label>
+        <input type="number" name="index" id="id" disabled required>
       </div>
       <div class="form-group">
         <label for="title">Título do Capítulo</label>
@@ -58,3 +58,24 @@
 @endsection
 
 @section('scripts', 'src=/js/chapter/new_chapter.js')
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const mangaInput = document.getElementById('manga');
+    const chapterIndexInput = document.getElementById('id');
+    
+    mangaInput.addEventListener('change', function () {
+      const mangaId = this.value;
+
+      fetch(`/api/chapter/index/${mangaId}`)
+        .then(response => response.json())
+        .then(data => {
+          chapterIndexInput.value = data.index;
+        })
+        .catch(error => {
+          console.error('Erro ao buscar o índice do capítulo:', error);
+        });
+    });
+  });
+
+</script>

@@ -189,4 +189,18 @@ class ChapterController extends Controller
       }
     }
   }
+
+  public function getIndex()
+  {
+    $manga_id = request('id');
+    $lastIndex = Chapter::where('manga_id', $manga_id)
+      ->orderBy('index', 'desc')
+      ->first();
+
+    if ($lastIndex) {
+      return response()->json(['index' => $lastIndex->index + 1]);
+    }
+
+    return response()->json(['index' => 1]);
+  }
 }

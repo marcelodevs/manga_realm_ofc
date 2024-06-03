@@ -69,6 +69,10 @@ button[type="submit"]:hover {
   color: #fff;
 }
 
+input[type="number"]:disabled {
+  color: #fff;
+}
+
 /* ERROR */
 
 main .toast {

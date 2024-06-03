@@ -39,6 +39,7 @@ Route::post('/manga/{id}', [MangaCommentController::class, 'store'])->middleware
 Route::get('/chapter/{id}', [ChapterController::class, 'show']);
 Route::get('/create/chapter', [ChapterController::class, 'create'])->middleware('auth');
 Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->middleware('auth');
+Route::get('/api/chapter/index/{id}', [ChapterController::class, 'getIndex'])->middleware('auth')->name('api.chapter.index');
 
 Route::post('/create/chapter', [ChapterController::class, 'store'])->middleware('auth')->name('create.chapter');
 Route::post('/chapter/save_sketch', [ChapterController::class, 'storeSketch'])->middleware('auth')->name('save.chapter.sketch');
