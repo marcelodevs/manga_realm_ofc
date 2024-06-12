@@ -59,8 +59,8 @@ class MangaController extends Controller
       $favoritos = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
-        $manga = FavoriteController::byUser($user->id);
-        foreach ($manga as $item) {
+        $mangaFavorite = FavoriteController::byUser($user->id);
+        foreach ($mangaFavorite as $item) {
           $favoritos[] = MangaController::byId($item->manga_id);
         }
       }
