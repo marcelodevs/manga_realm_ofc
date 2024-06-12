@@ -31,12 +31,18 @@
           </button>
         </div>
         <div class="profile">
-          <button type="button">
-            <a href="/dashboard" class="nav-item text-decoration-none">
+          <div class="btn-group dropstart">
+            <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="/storage/{{ stripslashes(trim(preg_replace('/(\'|")/', '', json_encode($user->profile_photo_path)))) }}" alt="oi">
-              {{$user->name}}
-            </a>
-          </button>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/user/profile">Perfil ({{ $user->name }})</a></li>
+              <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/dashboard#rascunhos">Rascunhos ({{ count($rascunhos) }})</a></li>
+              <li><a class="dropdown-item" href="/dashboard#favoritos">Favoritos ({{ count($favoritos) }})</a></li>
+            </ul>
+          </div>
         </div>
       @endauth
       @guest

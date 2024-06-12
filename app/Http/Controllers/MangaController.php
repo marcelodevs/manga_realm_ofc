@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class MangaController extends Controller
 {
 
-  static function index(): mixed
+  static function index(): array
   {
     $manga = Manga::all()
       ->sortByDesc('updated_at')
@@ -51,6 +51,21 @@ class MangaController extends Controller
       $favorite = false;
     }
 
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+
+      $favoritos = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favoritos[] = MangaController::byId($item->manga_id);
+        }
+      }
+    }
+
     return view('user.manga.index', [
       'user'       => $user,
       'views'      => $views,
@@ -59,6 +74,8 @@ class MangaController extends Controller
       'favorite'   => $favorite,
       'chapters'   => $chapters,
       'categories' => $categories,
+      'favoritos'    => $favoritos,
+      'rascunhos'    => $rascunhos,
     ]);
   }
 
@@ -95,10 +112,27 @@ class MangaController extends Controller
     $user = auth()->user();
     $categories = CategorysController::show();
 
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+
+      $favorite = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favorite[] = MangaController::byId($item->manga_id);
+        }
+      }
+    }
+
     return view(
       'user.create.manga.index',
       [
         'user' => $user,
+        'favoritos' => $favorite,
+        'rascunhos' => $rascunhos,
         'categories' => $categories
       ]
     );
@@ -164,6 +198,22 @@ class MangaController extends Controller
 
     $all_categories = CategorysController::show();
     $user = auth()->user();
+
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+
+      $favorite = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favorite[] = MangaController::byId($item->manga_id);
+        }
+      }
+    }
+
     return view(
       'user.manga.edit.index',
       [
@@ -171,7 +221,9 @@ class MangaController extends Controller
         'manga'             => $manga[0],
         'chapters'          => $chapters,
         'categories'        => $all_categories,
-        'categoriesByManga' => $categories
+        'categoriesByManga' => $categories,
+        'favoritos'         => $favorite,
+        'rascunhos'         => $rascunhos,
       ]
     );
   }

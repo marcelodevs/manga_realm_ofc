@@ -21,13 +21,23 @@ class UserController extends Controller
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
+
+      $favorite = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favorite[] = MangaController::byId($item->manga_id);
+        }
+      }
     }
 
     return view('user.home.index', [
       'user'         => $user,
       'mangas'       => $mangas,
-      'rascunhos'    => $rascunhos,
       'genero_manga' => $generos,
+      'favoritos'    => $favorite,
+      'rascunhos'    => $rascunhos,
     ]);
   }
 
@@ -37,6 +47,22 @@ class UserController extends Controller
     $user = auth()->user();
     $generos = Category::all();
     $mangas = MangaController::byAuthors($user->id);
+
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+
+      $favorite = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favorite[] = MangaController::byId($item->manga_id);
+        }
+      }
+    }
+
     return view(
       'user.home.authors',
       [
@@ -44,6 +70,8 @@ class UserController extends Controller
         'mangas'       => $mangas,
         'authors'      => $authors,
         'genero_manga' => $generos,
+        'favoritos'    => $favorite,
+        'rascunhos'    => $rascunhos,
       ]
     );
   }
@@ -64,12 +92,6 @@ class UserController extends Controller
     $mangaIds = [];
     $rascunhos = [];
 
-    if (auth()->check()) {
-      $rascunhos = Chapter::where('sketch', true)
-        ->where('user_id', $user->id)
-        ->get();
-    }
-
     foreach ($category as $mangaCategory) {
       $mangaIds[] = $mangaCategory;
     }
@@ -78,13 +100,29 @@ class UserController extends Controller
       $mangas = MangaController::byId($id);
     }
 
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+
+      $favorite = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favorite[] = MangaController::byId($item->manga_id);
+        }
+      }
+    }
+
     return view(
       'user.home.categorys',
       [
         'user'         => $user,
         'mangas'       => $mangas,
-        'rascunhos'    => $rascunhos,
         'genero_manga' => $generos,
+        'favoritos'    => $favorite,
+        'rascunhos'    => $rascunhos,
         'category'     => $category_name,
       ]
     );
@@ -93,7 +131,25 @@ class UserController extends Controller
   public function create(): View
   {
     $user = auth()->user();
-    return view('user.create.index', ['user' => $user]);
+    if (auth()->check()) {
+      $rascunhos = Chapter::where('sketch', true)
+        ->where('user_id', $user->id)
+        ->get();
+
+      $favorite = array();
+
+      if (FavoriteController::byUser($user->id)->count() > 0) {
+        $manga = FavoriteController::byUser($user->id);
+        foreach ($manga as $item) {
+          $favorite[] = MangaController::byId($item->manga_id);
+        }
+      }
+    }
+    return view('user.create.index', [
+      'user' => $user,
+      'favoritos' => $favorite,
+      'rascunhos' => $rascunhos,
+    ]);
   }
 
   public function dashboard()

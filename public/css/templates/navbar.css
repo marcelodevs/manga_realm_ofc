@@ -10,6 +10,10 @@
   color: #00008b;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 /* MENU */
 
 header hr {
@@ -146,4 +150,18 @@ h1 a {
 .navbar-collapse {
   display: flex;
   justify-content: center;
+}
+
+/* DROPDOWN */
+
+.profile .btn:hover {
+  background-color: transparent;
+}
+
+.profile .btn {
+  outline: none;
+}
+
+.profile .btn-group a {
+  color: #000;
 }

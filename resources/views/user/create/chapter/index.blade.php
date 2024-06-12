@@ -26,7 +26,7 @@
       </div>
       <div class="form-group">
         <label for="id">Nº Capítulo</label>
-        <input type="number" name="index" id="id" disabled required>
+        <input type="number" name="index" id="id" required>
       </div>
       <div class="form-group">
         <label for="title">Título do Capítulo</label>
