@@ -120,9 +120,9 @@ h1 a {
 }
 
 #search-results {
-  position: fixed;
+  position: absolute;
   transform: translate(0%, -4%);
-  width: 50%;
+  width: 49%;
   max-height: 200px;
   overflow-y: auto;
   background-color: #fff;
@@ -141,7 +141,7 @@ h1 a {
   background-color: #f0f0f0;
 }
 
-#search-results a {
+#search-results div {
   color: #333;
   text-decoration: none;
   min-width: 100%;

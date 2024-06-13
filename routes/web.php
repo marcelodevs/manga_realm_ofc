@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 Route::get('/manga/{id}', [MangaController::class, 'show'])->name('show.manga');
 Route::get('/create/manga', [MangaController::class, 'create'])->middleware('auth');
 Route::get('/manga/edit/{id}', [MangaController::class, 'edit'])->middleware('auth')->name('edit.manga');
-Route::get('/search/manga', [MangaController::class, 'search'])->name('search.manga');
+Route::get('/search/manga/{name}', [MangaController::class, 'search'])->name('search.manga');
 Route::get('/manga/favorite/{id}', [FavoriteController::class, 'store'])->middleware('auth')->name('favorite.manga');
 
 Route::post('/create/manga', [MangaController::class, 'store'])->middleware('auth')->name('create.manga');

@@ -40,6 +40,7 @@
   <!-- JQuery -->
   <script src="/js/jquery-3.7.1.min.js"></script>
   <script @yield('scripts')></script>
+  <script @yield('scripts2')></script>
   <script>
     // Tempo restante em segundos antes do timeout da sessão (vindo do Laravel)
     var sessionTimeout = {{ config('session.lifetime') * 60 }}; // Converte minutos em segundos

@@ -259,9 +259,9 @@ class MangaController extends Controller
     return redirect('/dashboard');
   }
 
-  public function search(Request $request)
+  public function search()
   {
-    $query = $request->input('q');
+    $query = request('name');
     $mangas = Manga::where('name', 'LIKE', '%' . $query . '%')->get();
 
     return response()->json([
