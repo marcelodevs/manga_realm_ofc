@@ -34,6 +34,8 @@ class ChapterController extends Controller
     $id = request('id');
     $user = auth()->user();
     $chapter = Chapter::find($id);
+    $rascunhos = array();
+    $favorite = array();
 
     $manga_name = MangaController::byId($chapter->manga_id);
 
@@ -63,8 +65,6 @@ class ChapterController extends Controller
         ->where('user_id', $user->id)
         ->get();
 
-      $favorite = array();
-
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
         foreach ($manga as $item) {
@@ -93,13 +93,13 @@ class ChapterController extends Controller
   {
     $user = auth()->user();
     $mangas = MangaController::byAuthors($user->id);
+    $rascunhos = array();
+    $favorite = array();
 
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
@@ -174,6 +174,8 @@ class ChapterController extends Controller
     $id = request('id');
     $chapter = Chapter::find($id);
     $user = auth()->user();
+    $rascunhos = array();
+    $favorite = array();
 
     if (!isset($chapter)) {
       abort(404);
@@ -185,8 +187,6 @@ class ChapterController extends Controller
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);

@@ -36,6 +36,9 @@ class MangaController extends Controller
     $categories = CategorysController::byId($categories_id);
     $user = auth()->user();
 
+    $rascunhos = array();
+    $favoritos = array();
+
     $comments = MangaCommentController::index($id);
 
     $views = [];
@@ -55,8 +58,6 @@ class MangaController extends Controller
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favoritos = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $mangaFavorite = FavoriteController::byUser($user->id);
@@ -111,13 +112,13 @@ class MangaController extends Controller
   {
     $user = auth()->user();
     $categories = CategorysController::show();
+    $rascunhos = array();
+    $favoritos = array();
 
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
@@ -198,13 +199,13 @@ class MangaController extends Controller
 
     $all_categories = CategorysController::show();
     $user = auth()->user();
+    $rascunhos = array();
+    $favoritos = array();
 
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);

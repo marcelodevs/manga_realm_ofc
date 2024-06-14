@@ -15,14 +15,13 @@ class UserController extends Controller
     $generos = Category::all();
     $mangas = MangaController::index();
     $user = auth()->user();
-    $rascunhos = [];
+    $rascunhos = array();
+    $favorite = array();
 
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
@@ -43,17 +42,17 @@ class UserController extends Controller
 
   public function showAuthors(): View
   {
+    // OBS: CORRGIR BUG DOS AUTORES
     $authors = (User::whereHas('mangas')->get());
     $user = auth()->user();
     $generos = Category::all();
     $mangas = MangaController::byAuthors($user->id);
+    $favorite = array();
 
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
@@ -89,8 +88,9 @@ class UserController extends Controller
     $generos = Category::all();
     $category_name = request('id');
     $category = MangaCategoryController::show($category_name);
-    $mangaIds = [];
-    $rascunhos = [];
+    $mangaIds = array();
+    $rascunhos = array();
+    $favorite = array();
 
     foreach ($category as $mangaCategory) {
       $mangaIds[] = $mangaCategory;
@@ -104,8 +104,6 @@ class UserController extends Controller
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
@@ -131,12 +129,12 @@ class UserController extends Controller
   public function create(): View
   {
     $user = auth()->user();
+    $rascunhos = array();
+    $favorite = array();
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
         ->where('user_id', $user->id)
         ->get();
-
-      $favorite = array();
 
       if (FavoriteController::byUser($user->id)->count() > 0) {
         $manga = FavoriteController::byUser($user->id);
