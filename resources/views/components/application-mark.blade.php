@@ -1,1 +1,1 @@
-<img src="/img/book.png" alt="logo" width="48" height="48">
+<img src="/img/logo.jpeg" alt="logo" width="48" height="48" style="border-radius: 50%">
