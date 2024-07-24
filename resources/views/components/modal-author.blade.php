@@ -30,7 +30,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column align-items-center w-100">
-          @foreach ($manga as $item)
+          @foreach ($manga[0] as $item)
             <x-card-manga>
               <x-slot name="route">{{ route('show.manga', $item->id) }}</x-slot>
               <x-slot name="name">{{ $item->name }}</x-slot>

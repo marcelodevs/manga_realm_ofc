@@ -42,12 +42,16 @@ class UserController extends Controller
 
   public function showAuthors(): View
   {
-    // OBS: CORRGIR BUG DOS AUTORES
     $authors = (User::whereHas('mangas')->get());
     $user = auth()->user();
     $generos = Category::all();
-    $mangas = MangaController::byAuthors($user->id);
+    $mangas = array();
     $favorite = array();
+    $rascunhos = array();
+
+    foreach ($authors as $author) {
+      $mangas[] = MangaController::byAuthors($author->id);
+    }
 
     if (auth()->check()) {
       $rascunhos = Chapter::where('sketch', true)
